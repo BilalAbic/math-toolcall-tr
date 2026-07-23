@@ -170,18 +170,22 @@ kullanıcı ve `tool_response` turları maskelenir. Bu sayede model araç sonucu
 | Donanım | NVIDIA A100-SXM4-80GB (Colab) |
 | Ayrılan bellek | ≈ 10,3 GB |
 
-> **Not:** Model, veri setinin **757 örneklik** bir anlık görüntüsüyle eğitilmiştir.
-> Veri seti o tarihten sonra 1.006 örneğe genişletilmiştir; yeniden eğitim, güncel
-> sürümle daha geniş konu kapsamı sağlayacaktır.
+> ⚠️ **Sürüm farkı — önemli.** Bu adaptör, veri setinin **757 örneklik daha eski bir
+> anlık görüntüsüyle** eğitilmiştir. Veri seti o tarihten sonra **1.207 örneğe**
+> genişletilmiştir ve güncel sürümle **yeniden eğitim henüz yapılmamıştır**.
+> Dolayısıyla buradaki ağırlıklar, veri setinin bugünkü hâlinin tamamını görmemiştir.
 
 ## Eğitim verisi
 
 [`bilalabic/math-toolcall-tr`](https://huggingface.co/datasets/bilalabic/math-toolcall-tr)
-— 1.006 Türkçe örnek, 13 alt alan, 70 konu, 8 araç çağırma senaryosu.
+— Türkçe matematik tool-calling veri seti; 13 alt alan, 70 konu, 8 araç çağırma senaryosu.
 
-Veri kasıtlı olarak yalnızca "başarılı çağrı" içermez: örneklerin **%30,4'ünde hiç araç
-çağrılmaz** (soru zaten cevaplanabilir ya da zorunlu parametre eksik). Senaryolar arasında
-`yanlis_arac_tuzagi` (benzer isimli araçlardan doğrusunu seçme), `hata_yonetimi`
+**Bu adaptör veri setinin 757 örneklik sürümüyle eğitilmiştir**; veri seti şu anda
+1.207 örnektir (yukarıdaki sürüm farkı notuna bakınız).
+
+Veri kasıtlı olarak yalnızca "başarılı çağrı" içermez: örneklerin **yaklaşık %31'inde hiç
+araç çağrılmaz** (soru zaten cevaplanabilir ya da zorunlu parametre eksik). Senaryolar
+arasında `yanlis_arac_tuzagi` (benzer isimli araçlardan doğrusunu seçme), `hata_yonetimi`
 (sıfıra bölme vb.), `zincirli_cagri` ve `paralel_cagri` bulunur.
 
 ## Kaynaklar
@@ -200,7 +204,7 @@ Veri kasıtlı olarak yalnızca "başarılı çağrı" içermez: örneklerin **%
 - **Hesap doğruluğu garanti değildir.** Model araç *çağırmayı* öğrenir, hesabı kendisi
   yapmaz — kritik sonuçlarda çağrıyı gerçekten çalıştır ve sonucu doğrula.
 - **Yalnızca Türkçe ve yalnızca matematik.** Başka dil veya alanlara genellemesi beklenmez.
-- **Küçük veri seti (1.006 örnek)** ve `r=8` — üslup ve format öğrenilmiştir, temel modelin
+- **Küçük veri seti (757 örnek)** ve `r=8` — üslup ve format öğrenilmiştir, temel modelin
   matematik yeteneği köklü biçimde değişmemiştir.
 - Temel modelin ve `<tool_call>` formatının dışına çıkan araç şemalarında davranış
   öngörülemez olabilir.

@@ -16,11 +16,11 @@ Uçtan uca: veri üretimi → veri seti → eğitim → model.
 Bir dil modelinin **doğru fonksiyonu doğru parametreyle çağırmasını** ve dönen sonucu
 **kullanıcıya düzgün anlatmasını** öğreten Türkçe veri seti — tamamen matematik odaklı.
 
-Veri kasıtlı olarak yalnızca "başarılı çağrı" içermez. Örneklerin **%30,4'ünde hiç araç
+Veri kasıtlı olarak yalnızca "başarılı çağrı" içermez. Örneklerin **%31'inde hiç araç
 çağrılmaz**: soru zaten cevaplanabilir ya da zorunlu bir parametre eksiktir ve model
 uydurmak yerine netleştirme sorusu sorar.
 
-**1.006 örnek · 13 alt alan · 70 konu · 8 senaryo**
+**1.207 örnek · 13 alt alan · 70 konu · 8 senaryo**
 
 | Senaryo | Ne öğretir |
 |---|---|
@@ -107,11 +107,15 @@ atlayacağın ve hangi ayarı değiştireceğin adım adım anlatılır.
 | Temel model | `unsloth/gemma-4-e4b-it-unsloth-bnb-4bit` |
 | Yöntem | LoRA (r=8, alpha=8), yalnızca dil katmanları |
 | Eğitilebilir parametre | 18,35M / 8,01B (%0,23) |
+| Eğitilen örnek | **757** (veri setinin eski sürümü) |
 | Epoch / adım | 3 / 285 |
 | Batch | 2 × 4 = 8 |
 | Öğrenme oranı | 2e-4 |
 | Donanım | A100-SXM4-80GB (Colab) |
 | Son kayıp | ≈ 0,076 |
+
+> ⚠️ Yayımlanan adaptör **757 örnekle** eğitilmiştir. Veri seti bugün **1.207** örnektir;
+> güncel sürümle yeniden eğitim henüz yapılmamıştır.
 
 `train_on_responses_only` kullanılır — kayıp yalnızca model yanıtlarında hesaplanır,
 `tool_response` turu maskelidir. Model böylece araç sonucunu uydurmayı değil,
@@ -122,7 +126,7 @@ atlayacağın ve hangi ayarı değiştireceğin adım adım anlatılır.
 Veri seti sentetiktir ve insan doğrulamasından geçmemiştir. `tool_response` içerikleri
 gerçek fonksiyon çalıştırılarak değil model tarafından üretilmiştir; hesaplar örneklem
 üzerinden doğrulanmış ancak tamamı tek tek kontrol edilmemiştir. Senaryo tutarsızlığı
-%2,5'tir (25 örnekte çağrı beklenirken liste boş). Ayrıntı: [dataset kartı](https://huggingface.co/datasets/bilalabic/math-toolcall-tr).
+%3,1'dir (37 örnekte çağrı beklenirken liste boş). Ayrıntı: [dataset kartı](https://huggingface.co/datasets/bilalabic/math-toolcall-tr).
 
 ## Lisans
 

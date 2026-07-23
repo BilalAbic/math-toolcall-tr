@@ -26,10 +26,10 @@ dataset_info:
       dtype: string
   splits:
   - name: train
-    num_bytes: 1406417
-    num_examples: 1006
-  download_size: 1406043
-  dataset_size: 1406417
+    num_bytes: 1669009
+    num_examples: 1207
+  download_size: 1668167
+  dataset_size: 1669009
 configs:
 - config_name: default
   data_files:
@@ -39,11 +39,11 @@ configs:
 
 # math-toolcall-tr
 
-Türkçe **matematik odaklı fonksiyon çağırma (tool calling)** veri seti — 1.006 örnek,
+Türkçe **matematik odaklı fonksiyon çağırma (tool calling)** veri seti — 1.207 örnek,
 ShareGPT formatında, düşünme adımları (`<think>`) dahil.
 
 > **EN:** A Turkish synthetic dataset for training LLMs to call math functions correctly
-> and present the results clearly. 1,006 ShareGPT-format conversations with reasoning
+> and present the results clearly. 1,207 ShareGPT-format conversations with reasoning
 > traces, covering 70 math topics and 8 tool-calling scenarios.
 
 ## Ne öğretir
@@ -53,7 +53,7 @@ ShareGPT formatında, düşünme adımları (`<think>`) dahil.
 1. **Doğru araç seçimi ve parametre çıkarımı** — gereksiz çağrı yapmamak dahil.
 2. **Ham sayısal çıktıyı kullanıcıya doğal dille anlatmak.**
 
-Veri seti kasıtlı olarak sadece "başarılı çağrı" öğretmez. Örneklerin **%30,4'ünde hiç
+Veri seti kasıtlı olarak sadece "başarılı çağrı" öğretmez. Örneklerin **%31'inde hiç
 araç çağrılmaz**: ya soru zaten bilgiyle cevaplanabilir, ya da zorunlu bir parametre
 eksiktir ve model uydurmak yerine netleştirme sorusu sorar.
 
@@ -95,29 +95,30 @@ değil, yorumlamayı** öğrenmesini sağlar — kayıp yalnızca `gpt` turları
 
 | Alt alan | Örnek | Alt alan | Örnek |
 |---|---|---|---|
-| cebir | 134 | istatistik | 70 |
-| finansal_matematik | 96 | trigonometri | 70 |
-| analiz | 96 | lineer_cebir | 65 |
-| aritmetik | 96 | birim_olcu | 65 |
-| sayi_teorisi | 80 | olasilik_kombinatorik | 64 |
-| geometri | 75 | ayrik_matematik | 55 |
-| | | optimizasyon | 40 |
+| cebir | 154 | olasilik_kombinatorik | 79 |
+| analiz | 116 | birim_olcu | 75 |
+| finansal_matematik | 112 | istatistik | 75 |
+| geometri | 110 | ayrik_matematik | 60 |
+| aritmetik | 106 | optimizasyon | 50 |
+| trigonometri | 100 | | |
+| sayi_teorisi | 90 | | |
+| lineer_cebir | 80 | | |
 
 ### Senaryolar
 
 | Senaryo | Örnek | Ne öğretir |
 |---|---|---|
-| `arac_gereksiz` | 166 | Araç gerekmiyorsa çağırmamak |
-| `tek_cagri` | 145 | Tek aracı doğru parametreyle çağırmak |
-| `yanlis_arac_tuzagi` | 140 | Benzer isimli araçlar arasından doğrusunu seçmek |
-| `paralel_cagri` | 120 | Bağımsız hesapları aynı anda yapmak |
-| `hata_yonetimi` | 116 | Sıfıra bölme / tanımsızlık gibi hataları açıklamak |
-| `eksik_parametre` | 115 | Uydurmak yerine netleştirme sorusu sormak |
-| `cok_adimli_gorev` | 114 | Tek istekte 3+ çağrıyla tamamlamak |
-| `zincirli_cagri` | 90 | İkinci çağrının girdisini ilkinin sonucundan almak |
+| `arac_gereksiz` | 186 | Araç gerekmiyorsa çağırmamak |
+| `tek_cagri` | 170 | Tek aracı doğru parametreyle çağırmak |
+| `hata_yonetimi` | 161 | Sıfıra bölme / tanımsızlık gibi hataları açıklamak |
+| `yanlis_arac_tuzagi` | 160 | Benzer isimli araçlar arasından doğrusunu seçmek |
+| `eksik_parametre` | 151 | Uydurmak yerine netleştirme sorusu sormak |
+| `cok_adimli_gorev` | 134 | Tek istekte 3+ çağrıyla tamamlamak |
+| `paralel_cagri` | 130 | Bağımsız hesapları aynı anda yapmak |
+| `zincirli_cagri` | 115 | İkinci çağrının girdisini ilkinin sonucundan almak |
 
-**Zorluk:** kolay 386 · orta 275 · zor 345
-**Çoklu çağrı içeren örnek:** 346
+**Zorluk:** kolay 456 · orta 346 · zor 405
+**Çoklu çağrı içeren örnek:** 406
 
 ## Kullanım
 
@@ -158,7 +159,7 @@ Tekrar eden sorular elenir. Konu dağılımı, işlenmemiş konular önceliklend
 
 Üretim kodunun tamamı açık: [github.com/BilalAbic/math-toolcall-tr](https://github.com/BilalAbic/math-toolcall-tr)
 
-## Bu veri setiyle eğitilen model
+## İlgili model
 
 | | |
 |---|---|
@@ -167,6 +168,10 @@ Tekrar eden sorular elenir. Konu dağılımı, işlenmemiş konular önceliklend
 | 💻 GitHub | https://github.com/BilalAbic/math-toolcall-tr |
 
 Gemma-4 E4B üzerine LoRA (r=8) ile eğitilmiştir; 3 epoch, `train_on_responses_only`.
+
+> ⚠️ **Sürüm farkı:** Bu adaptör, veri setinin **757 örneklik daha eski bir anlık
+> görüntüsüyle** eğitilmiştir — buradaki güncel 1.207 örnekle **değil**. Güncel sürümle
+> yeniden eğitim henüz yapılmamıştır.
 
 ## Sınırlamalar
 
@@ -178,7 +183,7 @@ bilinmesi gerekenler:
   yönlendirilmiştir ancak doğrulukları garanti edilemez.
 - **Matematiksel hatalar mümkündür.** Prompt matematiksel doğruluğu şart koşar ve
   incelenen örneklerde hesaplar doğrudur, ancak tüm örnekler tek tek doğrulanmamıştır.
-- **Senaryo tutarsızlığı: %2,5.** 25 örnekte araç çağrısı beklenirken çağrı listesi
+- **Senaryo tutarsızlığı: %3,1.** 37 örnekte araç çağrısı beklenirken çağrı listesi
   boştur (çoğunlukla `hata_yonetimi` senaryosunda). Kritik uygulamalarda bu örnekler
   filtrelenebilir.
 - **Tek model kaynaklı.** Tamamı tek bir modelden üretildiği için o modelin üslup ve
