@@ -12,6 +12,17 @@ Uçtan uca: veri üretimi → veri seti → eğitim → model.
 | 📈 **Benchmark notebook'u** | [notebooks/benchmark_base_vs_finetune.ipynb](notebooks/benchmark_base_vs_finetune.ipynb) |
 | 🛠️ **Veri üretim kodu** | [toolcall-dataset/](toolcall-dataset/) |
 
+### Colab'da aç (tek tık)
+
+| Notebook | |
+|---|---|
+| Eğitim | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BilalAbic/math-toolcall-tr/blob/main/notebooks/gemma4_e4b_math_toolcall_lora.ipynb) |
+| Benchmark | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BilalAbic/math-toolcall-tr/blob/main/notebooks/benchmark_base_vs_finetune.ipynb) |
+
+Rozete tıklamak yeterli — Colab notebook'u GitHub'dan doğrudan açar. Alternatif olarak
+Colab'da **Dosya → Not defteri aç → GitHub** sekmesine `BilalAbic/math-toolcall-tr`
+yazabilirsin. Açtıktan sonra **Runtime → Change runtime type → GPU** seçmeyi unutma.
+
 ## Ne bu?
 
 Bir dil modelinin **doğru fonksiyonu doğru parametreyle çağırmasını** ve dönen sonucu
@@ -93,15 +104,17 @@ atlayacağın ve hangi ayarı değiştireceğin adım adım anlatılır.
 ### Ölçmek
 
 [benchmark_base_vs_finetune.ipynb](notebooks/benchmark_base_vs_finetune.ipynb) — base
-model ile fine-tune'u iki benchmark'ta karşılaştırır:
+model ile fine-tune'u **üç benchmark'ta** karşılaştırır:
 
 | Benchmark | Ölçtüğü | Beklenti |
 |---|---|---|
 | Türkçe MMLU | Genel bilgi | Düşmemeli (aşırı uyum kontrolü) |
-| Matematik Tool-Call | Araç seçimi, çekimserlik, format | Yükselmeli |
+| Matematik Tool-Call | Araç seçimi, çekimserlik, format | **Yükselmeli** |
+| [GSM8K](https://huggingface.co/datasets/openai/gsm8k) | Serbest matematik akıl yürütme | Düşmemeli |
 
-Matematik testi modelin **hiç görmediği 450 örnek** üzerinde çalışır (eğitim 757'de
-kesildi) — yani ezber değil, genelleme ölçülür.
+Tool-call testi modelin **hiç görmediği 450 örnek** üzerinde çalışır (eğitim 757'de
+kesildi) — yani ezber değil, genelleme ölçülür. GSM8K ise sektör standardı referans
+noktası; İngilizce olduğu için kazanç değil, **bozulma olmadığı** ölçülür.
 
 ## Nasıl üretildi
 
