@@ -9,6 +9,7 @@ Uçtan uca: veri üretimi → veri seti → eğitim → model.
 | 📊 **Veri seti** | [huggingface.co/datasets/bilalabic/math-toolcall-tr](https://huggingface.co/datasets/bilalabic/math-toolcall-tr) |
 | 🤖 **Model (LoRA)** | [huggingface.co/bilalabic/gemma_4_math-toolcall-tr_lora](https://huggingface.co/bilalabic/gemma_4_math-toolcall-tr_lora) |
 | 📓 **Eğitim notebook'u** | [notebooks/gemma4_e4b_math_toolcall_lora.ipynb](notebooks/gemma4_e4b_math_toolcall_lora.ipynb) |
+| 📈 **Benchmark notebook'u** | [notebooks/benchmark_base_vs_finetune.ipynb](notebooks/benchmark_base_vs_finetune.ipynb) |
 | 🛠️ **Veri üretim kodu** | [toolcall-dataset/](toolcall-dataset/) |
 
 ## Ne bu?
@@ -38,7 +39,8 @@ uydurmak yerine netleştirme sorusu sorar.
 ```
 .
 ├── notebooks/
-│   └── gemma4_e4b_math_toolcall_lora.ipynb   # Unsloth ile LoRA eğitimi (Colab)
+│   ├── gemma4_e4b_math_toolcall_lora.ipynb   # Unsloth ile LoRA eğitimi (Colab)
+│   └── benchmark_base_vs_finetune.ipynb      # base vs fine-tune karşılaştırması
 └── toolcall-dataset/                          # veri seti üreteci (CLI)
     ├── cli.py          # komutlar: run / export / push / card / stats
     ├── prompts.py      # tek master prompt — kalite ayarı burada
@@ -87,6 +89,19 @@ olarak geri beslersin. Ayrıntı: [model kartı](https://huggingface.co/bilalabi
 
 [FINETUNE.md](toolcall-dataset/FINETUNE.md) — hangi hücreyi çalıştıracağın, neyi
 atlayacağın ve hangi ayarı değiştireceğin adım adım anlatılır.
+
+### Ölçmek
+
+[benchmark_base_vs_finetune.ipynb](notebooks/benchmark_base_vs_finetune.ipynb) — base
+model ile fine-tune'u iki benchmark'ta karşılaştırır:
+
+| Benchmark | Ölçtüğü | Beklenti |
+|---|---|---|
+| Türkçe MMLU | Genel bilgi | Düşmemeli (aşırı uyum kontrolü) |
+| Matematik Tool-Call | Araç seçimi, çekimserlik, format | Yükselmeli |
+
+Matematik testi modelin **hiç görmediği 450 örnek** üzerinde çalışır (eğitim 757'de
+kesildi) — yani ezber değil, genelleme ölçülür.
 
 ## Nasıl üretildi
 

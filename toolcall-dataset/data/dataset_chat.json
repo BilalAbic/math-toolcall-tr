@@ -40327,5 +40327,1927 @@
         }
       ]
     }
+  ],
+  [
+    {
+      "content": "Kutuda 18 mavi ve 7 siyah kalem var. Rastgele bir kalem seçtiğimde siyah gelme olasılığı nedir?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Kutuda toplam 25 kalem var: 18 mavi ve 7 siyah. Siyah kalem gelme olasılığı 7/25’tir.\n\nBu da:\n- ondalık olarak 0,28\n- yüzde olarak %28\n\nSonuç: Siyah gelme olasılığı %28’dir.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, kutudan rastgele seçilen tek bir kalemin siyah olma olasılığını soruyor; bu tek olay olasılığı olduğu için simple_probability aracını seçiyorum. Metinden elverişli durum sayısını siyah kalem sayısı olarak 7, toplam durum sayısını ise 18 mavi + 7 siyah = 25 olarak çıkarıyorum. Olasılık 7/25 olur; bunu kontrol ettiğimde ondalık karşılığı 0,28 ve yüzde olarak %28 eder. Sonucu kısa ve net biçimde kesir, ondalık ve yüzde olarak sunacağım.",
+      "tool_calls": [
+        {
+          "name": "simple_probability",
+          "arguments": {
+            "favorable_outcomes": "7",
+            "total_outcomes": "18 + 7"
+          },
+          "result": {
+            "probability": "7/25",
+            "decimal": "0.28",
+            "percent": "28%"
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Bir çağrı merkezinde bir aramanın sorunlu sonuçlanma ihtimali yüzde 20. Beş aramadan tam iki tanesinin sorunlu olma olasılığı nedir?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Tam 2 aramanın sorunlu olma olasılığı 0.2048’dir, yani %20.48. Başka bir deyişle, 5 aramadan 2’sinin sorunlu çıkması yaklaşık her 100 denemede 20.48 kez beklenir.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, 5 aramadan tam 2 tanesinin sorunlu olma olasılığını soruyor; bu, bağımsız denemeler ve sabit başarı olasılığı içerdiği için binom dağılımı kullanırım. Bu nedenle tek uygun aracı binomial_probability olarak seçiyorum; combinations ya da evaluate_expression ek bir fayda sağlamaz, çünkü doğrudan binom olasılığını hesaplamak yeterli. Mesajdan deneme sayısını 5, istenen sorunlu arama sayısını 2 ve tek denemedeki sorunlu olma olasılığını 0.20 olarak çıkarıyorum. Hesabı doğrularken P(X=2)=C(5,2)·(0.2)^2·(0.8)^3 = 10·0.04·0.512 = 0.2048 olduğunu görüyorum; sonucu yüzde biçiminde de sunacağım.",
+      "tool_calls": [
+        {
+          "name": "binomial_probability",
+          "arguments": {
+            "trials": "5",
+            "successes": "2",
+            "success_probability": "0.2"
+          },
+          "result": {
+            "probability": 0.2048,
+            "formatted": "0.2048",
+            "percentage": "20.48%",
+            "formula": "C(5,2) * (0.2)^2 * (0.8)^3"
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Bir fabrikada bir ürünün arızalı çıkma ihtimali yüzde 4, kargonun gecikme ihtimali yüzde 5. Bu iki durumun birbirinden bağımsız olduğunu varsayarsak, ikisinin de aynı siparişte olması ihtimali nedir?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "İki durumun da aynı siparişte görülme olasılığı 0.002’dir; bu da yüzde 0.2’ye, yani 1/500’e eşittir.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, arızalı ürün ile gecikmeli kargonun aynı siparişte birlikte gerçekleşme olasılığını soruyor. Bu yüzden tek bir birleşik olasılık aracı olan compound_probability seçiyorum; çünkü olaylar bağımsız ve istenen ilişki \"and\". Mesajdan olasılıkları yüzde 4 ve yüzde 5 olarak çıkarıp sırasıyla 0.04 ve 0.05 biçimine dönüştürüyorum; bağımsızlık bilgisi de true oluyor. Hesap 0.04 × 0.05 = 0.002 eder; bunu yüzdeye çevirince %0.2 çıkar ve sonucu kısa, net bir cümleyle sunacağım.",
+      "tool_calls": [
+        {
+          "name": "compound_probability",
+          "arguments": {
+            "event_a_probability": "0.04",
+            "event_b_probability": "0.05",
+            "relation": "and",
+            "independent": true
+          },
+          "result": {
+            "probability": "0.002",
+            "percentage": "0.2%",
+            "fraction": "1/500"
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Yokuşun yükselti kısmı 3 metre, yatay mesafe ise 0 metre çıktı. Eğim oranını söyleyebilir misin?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Eğim oranı normalde yükselti / yatay mesafe olarak hesaplanır. Burada 3 m / 0 m olduğu için işlem tanımsızdır; yani eğim oranı hesaplanamaz. Kısaca, yatay mesafe 0 metre olduğundan bölme yapılamaz.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, yokuşun eğim oranını istiyor; bu oran normalde yükselti bölü yatay mesafe ile hesaplanır. Verilen değerler 3 metre ve 0 metre olduğu için ben 3 / 0 ifadesini değerlendirmeyi seçiyorum; çünkü doğrudan istenen oran bu işlemdir ve başka bir araca gerek yok. Parametreleri mesajdan yükselti = 3 ve yatay mesafe = 0 olarak çıkarıyorum; yatay mesafe sıfır olduğundan bölme işleminin tanımsız çıkacağını önceden doğruluyorum. Sonucu kullanıcıya kısa ve net biçimde, neden hesaplanamadığını belirterek açıklayacağım.",
+      "tool_calls": [
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "3 / 0"
+          },
+          "result": {
+            "error": "sifira_bolme",
+            "message": "3 / 0 ifadesi tanımsızdır; yatay mesafe 0 olduğu için bölme yapılamaz."
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Bir dizüstünde ekran arızası olma ihtimali yüzde 6, pil arızası olma ihtimali yüzde 8. İkisinin birlikte olma ihtimali de yüzde 2 ise, bu ikisinden en az birinin olma ihtimali kaçtır?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "İki arızadan en az birinin olma ihtimali yüzde 12’dir. Hesap şu şekilde yapılır: %6 + %8 - %2 = %12.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, ekran arızası ve pil arızası olaylarından en az birinin olasılığını soruyor; bu doğrudan birleşim olasılığıdır. Bu yüzden probability_of_union aracını seçiyorum, çünkü verilen tek tek olasılıklar ve kesişim olasılığıyla sonuç doğru biçimde hesaplanabilir. Mesajdan parametreleri ekran arızası için 6% = 0.06, pil arızası için 8% = 0.08 ve birlikte olma için 2% = 0.02 olarak çıkarıyorum. Hesabı P(A∪B)=P(A)+P(B)-P(A∩B)=0.06+0.08-0.02=0.12 şeklinde doğruluyorum; sonucu kullanıcıya yüzde 12 olarak net ve kısa sunacağım.",
+      "tool_calls": [
+        {
+          "name": "probability_of_union",
+          "arguments": {
+            "event_a_probability": "0.06",
+            "event_b_probability": "0.08",
+            "intersection_probability": "0.02"
+          },
+          "result": {
+            "union_probability": "0.12"
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Çatıdaki eğik destek parçası 4 metre, yatay mesafe 9 metre diye ölçüldü. Bu durumda kalan dik kenar kaç metre olur?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Bu ölçülerle gerçek bir dik üçgen oluşmuyor. Çünkü hipotenüs en uzun kenar olmalıdır, fakat burada 4 m hipotenüs ve 9 m dik kenar verilmiş; ayrıca 4² - 9² = -65 çıktığı için karekök altında negatif sayı oluşur. Yani kalan dik kenar gerçek bir sayı olarak hesaplanamaz. Ölçüleri tekrar kontrol ederseniz doğru sonucu bulabilirim.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, dik üçgende eksik dik kenarı Pisagor bağıntısıyla bulmak istiyor. Bu durumda compute_missing_leg aracını seçiyorum; çünkü verilen bilgiler hipotenüs ve bir dik kenar uzunluğu gibi görünüyor. Mesajdan hipotenüsü 4 metre, bilinen dik kenarı 9 metre olarak çıkarıyorum; ancak burada 4² - 9² = 16 - 81 = -65 olduğu için karekök altında negatif sayı oluşur. Bu da gerçek sayılarda böyle bir dik üçgenin kurulamayacağı anlamına gelir, dolayısıyla sonucu sayı olarak uydurmadan hata olarak sunacağım.",
+      "tool_calls": [
+        {
+          "name": "compute_missing_leg",
+          "arguments": {
+            "hypotenuse": "4",
+            "leg": "9"
+          },
+          "result": {
+            "error": "Geçersiz giriş: hipotenüs uzunluğu bilinen dik kenardan küçük olamaz. 4^2 - 9^2 = -65 olduğu için gerçek sayılarda eksik dik kenar hesaplanamaz."
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "İki zar attım ve toplamın 8 geldiğini biliyorum. Bu durumda ilk zarın 3 gelmiş olma olasılığı nedir?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Toplamın 8 olduğu biliniyorsa, ilk zarın 3 gelmiş olma olasılığı 1/5, yani 0,2 ve %20'dir. Çünkü toplam 8 yapan sıralı olası sonuçlar 5 tanedir: (2,6), (3,5), (4,4), (5,3), (6,2). Bunların yalnızca biri ilk zarın 3 olduğu durumdur: (3,5).",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, iki adil zar atıldığında toplamın 8 olduğu bilgisi altında ilk zarın 3 gelme olasılığını soruyor. Bu durumda koşullu olasılık hesaplamak için conditional_probability aracını seçiyorum; çünkü istenen şey doğrudan \"olay / koşul\" oranıdır ve başka bir araca gerek yok. Toplamı 8 yapan sıralı sonuçlar (2,6), (3,5), (4,4), (5,3), (6,2) olduğundan koşul altındaki toplam durum sayısı 5’tir; bunların içinde ilk zarın 3 olduğu yalnızca (3,5) durumu vardır, yani ortak uygun durum sayısı 1’dir. Bu nedenle olasılık 1/5 = 0,2 = %20 çıkar; sonucu kısa, net ve Türkçe olarak açıklayacağım.",
+      "tool_calls": [
+        {
+          "name": "conditional_probability",
+          "arguments": {
+            "joint_favorable_outcomes": "1",
+            "condition_total_outcomes": "5"
+          },
+          "result": {
+            "conditional_probability": "1/5",
+            "decimal": 0.2,
+            "percentage": 20
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Bir dik üçgende hipotenüs 5 metre, bir dik kenar 12 metre. Diğer kenar kaç metre olur?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Bu ölçülerle gerçek bir dik üçgen oluşmaz. Çünkü Pisagor bağıntısına göre eksik dik kenar sqrt(5^2 - 12^2) olurdu; bu da sqrt(-119) demektir. Kök içi negatif olduğu için sonuç gerçek sayılarda tanımsızdır. Yani 5 metre hipotenüs, 12 metre dik kenarla uyumlu değildir.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, hipotenüs ve bir dik kenar vererek diğer dik kenarı bulmak istiyor; bunun için uygun araç compute_missing_leg. Mesajdan hipotenüsü 5 metre, bilinen dik kenarı 12 metre olarak çıkarıyorum ve bunları doğrudan parametre olarak geçiriyorum. Hesap ön kontrolünde Pisagor bağıntısını yazarım: eksik kenar = sqrt(hypotenuse^2 - leg^2) = sqrt(5^2 - 12^2) = sqrt(25 - 144) = sqrt(-119); kök içi negatif olduğu için gerçek sayılarda sonuç yok. Bu yüzden aracı hata döndürecek şekilde çağırıp, ardından kullanıcıya verilen ölçülerle böyle bir dik üçgenin mümkün olmadığını net biçimde açıklayacağım.",
+      "tool_calls": [
+        {
+          "name": "compute_missing_leg",
+          "arguments": {
+            "hypotenuse": "5",
+            "leg": "12"
+          },
+          "result": {
+            "error": "Negatif karekök: hypotenuse^2 - leg^2 = 25 - 144 = -119. Verilen değerlerle gerçek sayılarda eksik dik kenar hesaplanamaz; hipotenüs dik kenardan küçük olamaz."
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Bir dik üçgende hipotenüs 10 metre, bir dik kenar 12 metre. Kalan kenarı bulabilir misin?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Verdiğin bilgilerle kalan kenar bulunamaz; çünkü bu bir dik üçgende mümkün değil. Pisagor bağıntısına göre kalan kenar \\(\\sqrt{10^2 - 12^2} = \\sqrt{-44}\\) olur ve bu değer gerçek sayılarda tanımsızdır. Yani hipotenüs 10 m iken bir dik kenarın 12 m olması çelişkilidir. İstersen sayıları yeniden kontrol edelim; muhtemelen hipotenüs daha büyük olmalı.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı benden bir dik üçgende kalan kenarı bulmamı istiyor. Bu tür soruda Pisagor bağıntısını kullanırım; ancak verilen değerlerde hipotenüs 10 m, bir dik kenar 12 m olduğundan önce veri tutarlılığını kontrol etmem gerekir. Kalan kenar için hesaplanacak ifade \\(\\sqrt{10^2 - 12^2}\\) olur; burada içerdeki değer 100 - 144 = -44 çıktığı için gerçek sayılarda karekök alınamaz. Bu nedenle aracı yalnızca bu ifadenin sonucunu doğrulamak için kullanıp, sonrasında kullanıcaya bunun gerçek sayılarda mümkün olmadığını net biçimde açıklayacağım.",
+      "tool_calls": [
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "sqrt(10^2 - 12^2)"
+          },
+          "result": {
+            "error": "negatif sayının karekökü alınamaz",
+            "details": "10^2 - 12^2 = -44, bu nedenle reel sayılarda sonuç yoktur."
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Bahçede bir rampa çizecektim; bir kenar 8 metre diye yazılmış ama hipotenüs kısmı raporda boş kalmış. Buna göre diğer kenar ne çıkar?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Diğer kenarı hesaplayabilmem için hipotenüs uzunluğu kaç metre?",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, bir dik üçgende bir kenarın 8 metre olduğunu söylüyor; fakat hipotenüs bilgisi boş olduğu için diğer dik kenarı tek başına belirleyemem. Bu yüzden compute_hypotenuse aracını kullanmam, çünkü bu araç iki dik kenardan hipotenüs hesaplar ve burada gerekli ikinci ölçü eksik. Pisagor bağıntısı a^2+b^2=c^2 olsa da elimde yalnızca 8 m var; b ya da c olmadan sayısal sonuç üretmek mümkün değil. Sonucu uydurmadan, eksik bilgiyi net biçimde isteyeceğim.",
+      "tool_calls": null
+    }
+  ],
+  [
+    {
+      "content": "Bir kutuda 10 sağlam ve 2 hatalı vida var. Geri koymadan art arda iki vida seçildiğinde, ilk vida sağlam ve ikinci vida hatalı gelmesi ihtimali nedir?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "İlk vidanın sağlam ve ikinci vidanın hatalı gelme ihtimali \\(\\frac{10}{12} \\times \\frac{2}{11} = \\frac{5}{33}\\) olur. Bu da yaklaşık olarak %15,15’e karşılık gelir.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, geri koymadan art arda iki seçimde ilk vidanın sağlam ve ikinci vidanın hatalı olma ihtimalini soruyor. Bu nedenle doğrudan birleşik olasılığı hesaplayan probability_without_replacement aracını seçiyorum; çünkü ilk seçim sağlam geldikten sonra toplam sayı 11’e düşer ve ikinci seçimde hatalı sayısı 2 olarak kalır. Mesajdan parametreleri 10 sağlam, 2 hatalı ve toplam 12 vida olarak çıkarıyorum; buna göre ilk seçim için favorable_first=10, total_first=12, ikinci seçim için favorable_second=2, total_second=11 olur. Sonucu 10/12 × 2/11 = 20/132 = 5/33 olarak doğrulayıp, bunu hem kesir hem de yaklaşık yüzde olarak kullanıcıya net biçimde sunacağım.",
+      "tool_calls": [
+        {
+          "name": "probability_without_replacement",
+          "arguments": {
+            "favorable_first": "10",
+            "total_first": "12",
+            "favorable_second": "2",
+            "total_second": "11"
+          },
+          "result": {
+            "probability": "5/33",
+            "decimal": "0.1515151515",
+            "percent": "15.15151515%"
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "3,6 kiloluk un çuvalını 4 poşete eşit bölmem lazım. Her poşete kaç gram düşer?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "3,6 kilogram un = 3600 gramdır. Bunu 4 eşit poşete bölersek her poşete 900 gram düşer.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı 3,6 kilogramlık unun 4 eşit poşete bölünmesinde her poşete düşen miktarı soruyor. Önce kütle birimini gram cinsine çevirmem gerekiyor; çünkü poşet başına miktarı daha net ve standart şekilde gramla sunacağım. Bu yüzden ilk araç olarak convert_unit seçiyorum ve 3,6 kg -> g dönüşümünü yapıyorum; sonuç 3600 g olmalı. Ardından ikinci araç olarak evaluate_expression ile 3600 / 4 işlemini hesaplayacağım; bu da 900 eder, yani her poşet 900 gramdır.",
+      "tool_calls": [
+        {
+          "name": "convert_unit",
+          "arguments": {
+            "value": "3.6",
+            "from_unit": "kg",
+            "to_unit": "g"
+          },
+          "result": {
+            "value": "3600",
+            "unit": "g"
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "3600 / 4"
+          },
+          "result": {
+            "value": "900"
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Sabah dışarıda eksi 12 derece vardı. Bunu Kelvin'e çevirip bir de 3 ile çarparsam kaç çıkar?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Eksi 12 °C, 261.15 K eder. Bunu 3 ile çarptığımızda sonuç 783.45 K olur.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, sabahki eksi 12 dereceyi önce Kelvin'e çevirmemi, ardından çıkan değeri 3 ile çarpmamı istiyor. Bu yüzden önce birim dönüşümü için convert_unit aracını seçiyorum; çünkü sıcaklık dönüşümü doğrudan hesaplanmalı ve ikinci adımın girdisi ilk sonuca bağlı. Mesajdan giriş değeri -12, kaynak birim C ve hedef birim K olarak çıkarıyorum; dönüşüm sonucu 261.15 K olmalı, çünkü 0 °C = 273.15 K olduğundan 273.15 - 12 = 261.15 eder. Sonra 261.15 × 3 işlemini evaluate_expression ile hesaplayacağım; bu da 783.45 verir ve sonucu birimleriyle birlikte net biçimde sunacağım.",
+      "tool_calls": [
+        {
+          "name": "convert_unit",
+          "arguments": {
+            "value": "-12",
+            "from_unit": "C",
+            "to_unit": "K"
+          },
+          "result": {
+            "value": 261.15,
+            "unit": "K"
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "261.15 * 3"
+          },
+          "result": {
+            "value": 783.45
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Kilerde 4 kırmızı, 3 mavi ve 2 yeşil şeker var. Gözüm kapalı bir tane çekince kırmızı gelme ihtimali nedir?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Toplam şeker sayısı 9’dur: 4 kırmızı, 3 mavi ve 2 yeşil. Kırmızı gelme olasılığı 4/9’dur; bu da yaklaşık %44,44 eder.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, kilerdeki şekerlerden rastgele bir tane çekildiğinde kırmızı gelme olasılığını soruyor. Bu, basit olay olasılığıdır; bu yüzden uygun araç olarak probability_simple_event seçiyorum, çünkü istenen değer uygun durum sayısının toplam duruma oranıdır. Mesajdan uygun durum sayısını 4, toplam durum sayısını ise 4+3+2=9 olarak çıkarıyorum; sonucu kesir olarak 4/9, ondalık olarak yaklaşık 0,4444 diye doğruluyorum. Sonucu kullanıcıya kısa, net ve doğal Türkçeyle hem kesir hem de yaklaşık yüzde olarak sunacağım.",
+      "tool_calls": [
+        {
+          "name": "probability_simple_event",
+          "arguments": {
+            "favorable_outcomes": "4",
+            "total_outcomes": "9"
+          },
+          "result": {
+            "probability": "4/9",
+            "decimal": 0.4444444444444444,
+            "percentage": "44.44%"
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Bir sınıfta 8 kız ve 12 erkek var. Öğretmen sırayla ve geri koymadan önce bir kız sonra bir erkek seçerse, bu durumun olasılığı kaç olur?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Bir kız seçildikten sonra bir erkek seçilme olasılığı, geri koymadan yapıldığı için sırasıyla 8/20 ve 12/19 olur. Buna göre olasılık 8/20 × 12/19 = 24/95’tir. Yaklaşık değer olarak bu, 0,2526 yani %25,26’dır.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, sırayla ve geri koymadan önce bir kız sonra bir erkek seçilme olasılığını soruyor. Bu yüzden probability_without_replacement aracını seçiyorum; çünkü olay ardışık ve geri koymasız iki seçimden oluşuyor. Parametreleri metinden 8 kız, 12 erkek ve toplam 20 öğrenci olarak çıkarıyorum; ilk seçimde istenen durum 8/20, ikinci seçimde kalan toplam 19 içinden 12 uygun erkek var. Çarpınca 8/20 × 12/19 = 24/95 elde ediyorum; sonucu kesir ve yaklaşık ondalık olarak sunacağım.",
+      "tool_calls": [
+        {
+          "name": "probability_without_replacement",
+          "arguments": {
+            "favorable_first": "8",
+            "total_first": "20",
+            "favorable_second": "12",
+            "total_second": "19"
+          },
+          "result": {
+            "probability": "24/95",
+            "decimal": 0.25263157894736843
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Depoda termometre 68 Fahrenheit gösteriyor. Bunu santigrata çevirip üstüne 2 derece daha eklemem gerekiyor.",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "68 Fahrenheit, 20 santigrat dereceye eşittir. Buna 2 derece daha eklediğinizde sonuç 22 santigrat derece olur.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Depodaki 68 Fahrenheit değerini önce santigrata çevirmem gerekiyor, ardından buna 2 derece ekleyeceğim. Bunun için önce convert_unit aracını seçiyorum; çünkü ilk adım birim dönüşümü, ikinci adım ise elde edilen sayının üzerine sabit bir değer ekleme işlemi ve bunu evaluate_expression ile hesaplayabilirim. 68 F = (68-32)×5/9 = 20 C olduğundan ikinci çağrıda 20 + 2 ifadesini kullanacağım. Sonucu 22 °C olarak, açık ve birimli biçimde sunacağım.",
+      "tool_calls": [
+        {
+          "name": "convert_unit",
+          "arguments": {
+            "value": "68",
+            "from_unit": "F",
+            "to_unit": "C"
+          },
+          "result": {
+            "value": 20,
+            "unit": "C"
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "20 + 2"
+          },
+          "result": {
+            "value": 22
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "İlaç kutusunda 1250 miligram yazıyor. Altı kutunun toplamını gram olarak söylemem lazım.",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Bir kutuda 1250 miligram varsa bu 1,25 gram eder. Altı kutunun toplamı 1,25 × 6 = 7,5 gramdır.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcının istediği şey, bir kutudaki 1250 miligramı altı kutu için toplam gram cinsine çevirmektir. Önce birim dönüşümü için convert_unit kullanırım; çünkü mg’den g’ye çevirmek doğrudan bir ölçü birimi dönüşümüdür. Parametreleri mesajdan 1250 mg ve 6 kutu olarak çıkarırım; önce 1250 mg = 1,25 g sonucunu alırım, sonra bu değeri 6 ile çarparım: 1,25 × 6 = 7,5 g. Sonucu kullanıcıya kısa ve net biçimde, toplam miktarı gram cinsinden belirterek sunarım.",
+      "tool_calls": [
+        {
+          "name": "convert_unit",
+          "arguments": {
+            "value": "1250",
+            "from_unit": "mg",
+            "to_unit": "g"
+          },
+          "result": {
+            "value": "1.25",
+            "unit": "g"
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "1.25 * 6"
+          },
+          "result": {
+            "value": 7.5
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Manometre 1,8 bar gösteriyor. Güvenlik için bunun yüzde 25 fazlasını kPa cinsinden raporlayacağım.",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "1,8 bar = 180 kPa. Bunun yüzde 25 fazlası 225 kPa eder; güvenlik için raporlayacağınız değer 225 kPa'dır.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcının istediği şey, 1,8 bar olarak verilen basıncı önce kPa cinsine dönüştürmek ve ardından bunun yüzde 25 fazlasını hesaplamaktır. Bu yüzden önce convert_unit aracını seçiyorum; çünkü birim dönüşümü gerekiyor ve başka bir araç bu adımı doğrudan yapmıyor. Mesajdan değer olarak 1,8 barı çıkarıyorum ve hedef birimi kPa alıyorum; dönüşümde 1 bar = 100 kPa olduğundan 1,8 bar = 180 kPa olur. Sonra ikinci adımda evaluate_expression ile 180 × 1,25 hesaplayacağım; bu da 225 kPa sonucunu verir ve bunu kullanıcıya kısa, net bir cümleyle sunarım.",
+      "tool_calls": [
+        {
+          "name": "convert_unit",
+          "arguments": {
+            "value": "1.8",
+            "from_unit": "bar",
+            "to_unit": "kPa"
+          },
+          "result": {
+            "value": 180,
+            "unit": "kPa"
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "180 * 1.25"
+          },
+          "result": {
+            "value": 225
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Bir pakette 5 çikolatalı ve 4 vanilyalı kurabiye var. Bir tane alıp geri koyunca ikinciyi tekrar alıyorum; ilk aldığımın çikolatalı, ikincinin vanilyalı çıkması ne kadar olası?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "İlk çekilişte çikolatalı gelme olasılığı 5/9, ikinci çekilişte vanilyalı gelme olasılığı 4/9’dur. Kurabiyeyi geri koyduğunuz için iki çekiliş bağımsızdır; bu yüzden birlikte olasılık (5/9) × (4/9) = 20/81 olur. Bu da yaklaşık %24,69’dur.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, geri koymalı iki çekilişte ilk kurabiyenin çikolatalı, ikinci kurabiyenin vanilyalı olma olasılığını istiyor. Geri koyma olduğu için iki çekiliş bağımsızdır; bu yüzden probability_independent_events aracını seçiyorum. Mesajdan ilk olay için uygun durum sayısını 5, toplam durumu 9; ikinci olay için uygun durum sayısını 4, toplam durumu 9 olarak çıkarıyorum. Olasılığı 5/9 × 4/9 = 20/81 olarak hesaplayıp sonucu kesir ve yaklaşık yüzde olarak sunacağım.",
+      "tool_calls": [
+        {
+          "name": "probability_independent_events",
+          "arguments": {
+            "favorable_first": "5",
+            "total_first": "9",
+            "favorable_second": "4",
+            "total_second": "9"
+          },
+          "result": {
+            "probability_fraction": "20/81",
+            "probability_decimal": 0.24691358024691357,
+            "probability_percent": 24.691358024691358
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Standart bir 52 kartlık desteden iki kart peş peşe, geri koymadan çekiyorum. İlk kart kupa, ikinci kart da kupa gelirse bunun olasılığı ne çıkar?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "İki kartın da kupa gelme olasılığı 1/17’dir. Bu yaklaşık %5,88’e karşılık gelir. Kısaca: ilk çekilişte kupa gelme olasılığı 13/52, ikinci çekilişte de kupa gelme olasılığı 12/51 olduğundan birleşik olasılık (13/52) × (12/51) = 1/17 olur.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, geri koymadan iki kez kart çekildiğinde iki kartın da kupa gelme olasılığını soruyor. İlk aşamada ikinci çekilişte kupa sayısının 13’ten 12’ye düşmesini göstermek için evaluate_expression aracını seçiyorum; burada parametreyi mesajdan 13-1 ifadesi olarak çıkarıyorum. Sonra probability_without_replacement aracına ilk seçim için favorable_first=13, total_first=52, ikinci seçim için favorable_second=12, total_second=51 değerlerini veriyorum. Hesap: 13/52 = 1/4 ve 12/51 = 4/17, çarpınca 1/17 elde edilir; bu da yaklaşık 0,0588235 yani %5,88’dir. Sonucu kullanıcıya kısa, net ve doğal bir Türkçe cümleyle sunacağım.",
+      "tool_calls": [
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "13-1"
+          },
+          "result": {
+            "value": 12
+          }
+        },
+        {
+          "name": "probability_without_replacement",
+          "arguments": {
+            "favorable_first": "13",
+            "total_first": "52",
+            "favorable_second": "12",
+            "total_second": "51"
+          },
+          "result": {
+            "probability_fraction": "1/17",
+            "probability_decimal": 0.058823529411764705,
+            "steps": [
+              "13/52 = 1/4",
+              "12/51 = 4/17",
+              "(1/4) × (4/17) = 1/17"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Son üç ayın satış verilerine en küçük karelerle bir trend eğrisi uydurmak istiyorum ama kaçıncı derece polinom almam gerektiğini not etmemişim. Elimdeki noktaları da ayrı bir yere yazmıştım, burada yok.",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "En küçük karelerle trend eğrisi uydurabilmem için lütfen üç ayın veri noktalarını ve hangi derece polinomu istediğinizi paylaşır mısınız?",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcının son üç ay satış verilerine en küçük karelerle bir trend eğrisi uydurmak istediğini anlıyorum, ancak model kurmak için gerekli veri noktaları ve polinom derecesi mesajda yok. Bu durumda hiçbir araç çağırmıyorum; çünkü polynomial_fit için x_values, y_values ve degree zorunlu, eksik bilgiyle doğru hesap yapamam. Parametreleri mesajdan çıkaramıyorum: ne satış değerleri ne de ay/nokta listesi verilmiş, sadece niyet belirtilmiş. Sonucu hesaplanmış gibi sunmak yerine, önce eksik olan veri noktalarını ve istenen polinom derecesini netleştiren tek bir soru soracağım.",
+      "tool_calls": null
+    }
+  ],
+  [
+    {
+      "content": "Dershanedeki deneme puanlarıyla çalışma sürem arasında bir doğru uydurup gidişatı görmek istiyorum ama hangi haftaların verisini kullanacağımız mesajda yok. Veriyi ekleyince hesaplayabiliriz.",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Hangi haftalara ait deneme puanı ve çalışma süresi verilerini kullanmamı istiyorsunuz? Lütfen haftaları ve her hafta için puan-süre çiftlerini paylaşın.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, deneme puanları ile çalışma süresi arasına en küçük kareler yöntemiyle bir doğru uydurmak istiyor. Ancak hangi haftaların verisinin kullanılacağı belirtilmediği için line_fit aracını çağırmak için gerekli x_values ve y_values parametrelerini mesajdan güvenle çıkaramıyorum; bu yüzden araç kullanmıyorum. Eksik olan bilgi haftalara ait sayısal gözlem çiftleri olduğundan, önce bu verileri netleştirmem gerekiyor. Veri gelince doğruyu uydurup eğim ve sabit terimi Türkçe ve anlaşılır biçimde sunacağım.",
+      "tool_calls": null
+    }
+  ],
+  [
+    {
+      "content": "Mağazada iki ürünün satışını karşılaştırıyorum: A ürünü ilk gün 15 adet satıyor ve her gün 4 adet artıyor, B ürünü ilk gün 12 adet satıyor ve her gün iki katına çıkıyor. 4. gün hangisi önde olur?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "4. gün A ürünü 27 adet, B ürünü 96 adet satar. Bu nedenle 4. gün önde olan ürün B’dir; A’dan 69 adet daha fazladır.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı iki bağımsız satış dizisinin 4. gündeki değerini karşılaştırmamı istiyor; bu yüzden her biri için ayrı ve paralel iki hesap yapmalıyım. A ürünü aritmetik dizi olduğu için arithmetic_sequence_nth_term aracını, B ürünü geometrik dizi olduğu için geometric_sequence_nth_term aracını seçtim; factorize ve convert_unit gereksiz çünkü konu çarpanlara ayırma ya da birim dönüşümü değil. Mesajdan A için a1=15, d=4, n=4; B için a1=12, r=2, n=4 değerlerini çıkarıyorum. Hesabı doğruluyorum: A4 = 15 + 3·4 = 27, B4 = 12·2^3 = 96; dolayısıyla 4. gün B ürünü öndedir ve fark 96−27=69 adettir.",
+      "tool_calls": [
+        {
+          "name": "arithmetic_sequence_nth_term",
+          "arguments": {
+            "a1": 15,
+            "d": 4,
+            "n": 4
+          },
+          "result": {
+            "nth_term": 27
+          }
+        },
+        {
+          "name": "geometric_sequence_nth_term",
+          "arguments": {
+            "a1": 12,
+            "r": 2,
+            "n": 4
+          },
+          "result": {
+            "nth_term": 96
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Aylık üretim ile fire oranı arasında bir en küçük kareler uyumu istiyorum ama hangi ayların rakamlarını kullanacağımı yazmamışım. Sayıları netleştirelim, sonra modeli çıkaralım.",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "En küçük kareler uyumunu kurabilmem için lütfen hangi ayların verilerini kullanacağımızı ve her ay için üretim ile fire oranı değerlerini paylaşır mısınız?",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı aylık üretim ile fire oranı arasında en küçük kareler uyumu istiyor; ancak hangi ayların verilerinin kullanılacağını ve dolayısıyla x_values ile y_values listesini net biçimde vermemiş. Bu yüzden least_squares_fit aracını çağırmam doğru olmaz; çünkü eksik veriyle model derecesi ve eşleşen ölçüm çiftleri güvenilir şekilde çıkarılamaz. Mesajdan yalnızca genel hedefi çıkarabiliyorum, sayısal parametreleri çıkaramıyorum. Önce ilgili ayları ve o aylara ait üretim ile fire oranı değerlerini netleştirip, ardından modeli doğru şekilde kurarım.",
+      "tool_calls": null
+    }
+  ],
+  [
+    {
+      "content": "Müşteri sayısıyla reklam harcaması arasında ikinci dereceden bir uyum denemek istiyorum ama elimdeki tabloyu buraya koymayı unutmuşum. Önce verileri netleştirmemiz gerekecek.",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "İkinci dereceden uyumu hesaplayabilmem için lütfen müşteri sayısı ve reklam harcaması değerlerini içeren tabloyu, yani x-y veri çiftlerini paylaşır mısınız?",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, müşteri sayısı ile reklam harcaması arasında ikinci dereceden bir en küçük kareler uyumu istiyor; ancak gerekli tablo verileri mesajda yok. Bu yüzden hiçbir aracı çağırmıyorum, çünkü x-y noktaları olmadan ne polynomial_fit ne de residuals hesaplanabilir. Mesajdan yalnızca uyumun ikinci derece olacağı ve konunun optimizasyon/en küçük kareler olduğu çıkarılabiliyor; eksik olan asıl parametreler veri çiftleri. Sonucu şu aşamada hesaplayıp sunamam, bu nedenle önce verilerin paylaşılmasını kısa ve net bir soruyla isteyeceğim.",
+      "tool_calls": null
+    }
+  ],
+  [
+    {
+      "content": "Atölyedeki titreşim ölçümlerinden en iyi uyumlu çizgiyi çıkarmak istiyorum ama sensörden gelen değerleri mesajda paylaşmayı unuttum. Hangi noktalarla çalışacağımızı netleştirelim.",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Hangi ölçüm noktalarıyla çalışacağımızı paylaşır mısınız? Lütfen x ve y değerlerini birlikte gönderin; ayrıca uyumu doğrusal mı istiyorsunuz (derece 1), yoksa başka bir derece mi kullanmalıyız?",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, titreşim ölçümlerinden en iyi uyumlu çizgiyi bulmak istiyor; ancak en küçük kareler hesabı için gerekli sensör noktaları mesajda yok. Bu yüzden least_squares_fit aracını çağırmıyorum, çünkü x_values ve y_values olmadan doğru bir uyum hesabı yapılamaz. Kullanıcıdan çalışacağımız ölçüm çiftlerini istemem gerekiyor; “çizgi” dediği için derece varsayılan olarak 1 olabilir ama bunu da netleştirmek daha doğru olur. Sonucu şimdi sayısal olarak sunamam; önce veri noktalarını aldıktan sonra uygun doğrusal modeli hesaplayıp katsayıları ve denklemi açıklayabilirim.",
+      "tool_calls": null
+    }
+  ],
+  [
+    {
+      "content": "Bir etkinliğin kayıt sayısını inceliyorum: birinde ilk gün 24 kişi var ve her gün 6 kişi artıyor, diğerinde ilk gün 18 kişi var ve her gün yüzde 25 büyüyor. İlk 3 günün toplamında hangisi daha yüksek olur?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "İlk 3 günün toplamı:\n- 24, 30, 36 şeklinde artan etkinlik: 90 kişi\n- 18, 22,5, 28,125 şeklinde büyüyen etkinlik: 68,625 kişi\n\nKarşılaştırınca ilk etkinlik daha yüksektir. Fark 21,375 kişi olur.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, iki bağımsız kayıt artış modelinin ilk 3 gündeki toplamını karşılaştırmamı istiyor. Bu yüzden aritmetik dizi toplamı ve geometrik dizi toplamı için iki aracı paralel seçtim; gcd_lcm ve evaluate_expression gereksiz, çünkü soru doğrudan seri toplamı karşılaştırması. Mesajdan aritmetik model için a1=24, d=6, n=3; geometrik model için a1=18, r=1.25, n=3 değerlerini çıkardım. Sonucu, iki toplamı yan yana verip hangisinin kaç kişi daha yüksek olduğunu belirterek sunacağım; kontrolümde aritmetik toplam 24+30+36=90, geometrik toplam 18+22.5+28.125=68.625 çıktı.",
+      "tool_calls": [
+        {
+          "name": "arithmetic_sequence_sum",
+          "arguments": {
+            "a1": 24,
+            "d": 6,
+            "n": 3
+          },
+          "result": {
+            "sum": 90,
+            "terms": [
+              24,
+              30,
+              36
+            ]
+          }
+        },
+        {
+          "name": "geometric_sequence_sum",
+          "arguments": {
+            "a1": 18,
+            "r": 1.25,
+            "n": 3
+          },
+          "result": {
+            "sum": 68.625,
+            "terms": [
+              18,
+              22.5,
+              28.125
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Birikim işini kafamda netleştiremedim: bir hesapta para 120 liradan başlıyor ve her ay 25 lira ekleniyor, diğerinde 100 liradan başlayıp her ay yüzde 15 büyüyor. 6. ayda hangisi daha fazla olur?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "6. ay sonunda ilk hesap daha fazla olur.\n- Aritmetik artış yapan hesap: 245 TL\n- Her ay %15 büyüyen hesap: 201,1359375 TL (yaklaşık 201,14 TL)\n\nDolayısıyla ilk hesap, ikinci hesaptan 43,8640625 TL daha yüksektir (yaklaşık 43,86 TL).",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, iki bağımsız birikim hesabının 6. ay sonunda hangisinin daha yüksek olduğunu soruyor. Bu yüzden yalnızca terim hesabı yapmam yeterli; bileşik faiz aracı burada yanıltıcıdır ve EBOB/EKOK da alakasızdır. İlk hesap aritmetik dizi gibi ilerliyor: a1=120, d=25, n=6; ikinci hesap geometrik dizi gibi ilerliyor: a1=100, r=1.15, n=6. Ben sonuçları ayrı ayrı hesaplayıp sonra karşılaştıracağım; aritmetikte 120+5·25=245, geometrikte 100·1.15^5=201.1359375 olduğundan ilk hesap daha büyüktür.",
+      "tool_calls": [
+        {
+          "name": "arithmetic_sequence_nth_term",
+          "arguments": {
+            "a1": 120,
+            "d": 25,
+            "n": 6
+          },
+          "result": {
+            "a_n": 245
+          }
+        },
+        {
+          "name": "geometric_sequence_nth_term",
+          "arguments": {
+            "a1": 100,
+            "r": 1.15,
+            "n": 6
+          },
+          "result": {
+            "a_n": 201.1359375
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Yazın bir kenara ayırdığım para için iki yöntem bakıyorum. Birincisi 80 liradan başlıyor, her hafta 20 lira artıyor; ikincisi 50 liradan başlıyor, her hafta yüzde 30 artıyor. İlk 5 haftanın toplamında hangisi daha büyük çıkar?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "İlk 5 haftanın toplamında birinci yöntem daha büyük çıkıyor.\n\n- 1. yöntem (80 liradan başlayıp her hafta 20 lira artan): toplam 600 TL\n- 2. yöntem (50 liradan başlayıp her hafta %30 artan): toplam 452,155 TL\n\nKarşılaştırma: 600 TL, 452,155 TL’den 147,845 TL daha fazladır.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, ilk 5 haftada birikim toplamını iki yöntem için karşılaştırmamı istiyor: biri aritmetik artışlı, diğeri geometrik artışlı. Bu yüzden iki bağımsız hesap yapacağım; birinci için arithmetic_sequence_sum, ikinci için geometric_sequence_sum kullanmak uygun, çünkü ikisi de doğrudan dizi toplamını veriyor ve gereksiz başka araç gerekmiyor. İlk yöntem için parametreler mesajdan a1=80, d=20, n=5 olarak çıkarılır; toplamın 80+100+120+140+160=600 olduğunu biliyorum. İkinci yöntem için a1=50, r=1.3, n=5 alınır; terimler 50, 65, 84.5, 109.85, 142.805 olup toplam 452.155 eder. Sonucu Türkçe olarak, iki toplamı da birimleriyle söyleyip hangisinin büyük olduğunu ve farkı kısa ve net biçimde belirteceğim.",
+      "tool_calls": [
+        {
+          "name": "arithmetic_sequence_sum",
+          "arguments": {
+            "a1": 80,
+            "d": 20,
+            "n": 5
+          },
+          "result": {
+            "sum": 600
+          }
+        },
+        {
+          "name": "geometric_sequence_sum",
+          "arguments": {
+            "a1": 50,
+            "r": 1.3,
+            "n": 5
+          },
+          "result": {
+            "sum": 452.155
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Telefon paketlerinde iki seçenek var: birinde ayda 300 dakika var ve her ay 40 dakika artıyor, diğerinde 200 dakikadan başlıyor ve her ay yüzde 10 yükseliyor. 7. ayda hangisi öne geçer?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "7. ayda birinci seçenek öne geçer. Aritmetik paket 540 dakikaya ulaşır; geometrik paket ise 354,312 dakikada kalır. Yani birinci seçenek 185,688 dakika daha fazladır.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, 7. ayda iki telefon paketi arasından hangisinin daha fazla dakikaya ulaştığını soruyor. Bu yüzden iki bağımsız hesap yapmam gerekiyor: biri aritmetik dizi, diğeri geometrik dizi; bileşik faiz aracı bu bağlamda yanıltıcı olduğu için kullanmıyorum. İlk paket için a_7 = 300 + 6·40 = 540 dakikayı, ikinci paket için a_7 = 200·1.1^6 = 354.312 dakikayı hesaplıyorum. Sonuçları karşılaştırınca 540 > 354.312 olduğu için birinci paket 7. ayda önde; farkı da 185.688 dakika olarak sunacağım.",
+      "tool_calls": [
+        {
+          "name": "arithmetic_sequence_nth_term",
+          "arguments": {
+            "a1": 300,
+            "d": 40,
+            "n": 7
+          },
+          "result": {
+            "nth_term": 540
+          }
+        },
+        {
+          "name": "geometric_sequence_nth_term",
+          "arguments": {
+            "a1": 200,
+            "r": 1.1,
+            "n": 7
+          },
+          "result": {
+            "nth_term": 354.312
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "P(1,4) ve Q(7,16) için hem doğrunun eğimini hem x eksenini kestiği yeri hem de iki nokta arasındaki mesafeyi söyler misin?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "P(1,4) ve Q(7,16) noktalarından geçen doğrunun:\n- eğimi 2'dir,\n- x eksenini kestiği nokta (-1, 0)'dır,\n- iki nokta arasındaki uzaklığı ise 6√5 birimdir, yaklaşık 13,42 birim.\n\nİstersen doğrunun denklemine de yazabilirim: y = 2x + 2.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı P(1,4) ve Q(7,16) noktaları için doğrunun eğimini, x eksenini kestiği yeri ve iki nokta arasındaki uzaklığı istiyor. Eğimi önce iki nokta formülüyle sayısal olarak doğrulamak için evaluate_expression kullanacağım; ardından doğru denklemini kurup y-kesişimini ve x-kesişimini bulmak için solve_equation çağıracağım. Mesajdan P=(1,4) ve Q=(7,16) koordinatlarını alıyorum; eğim (16-4)/(7-1)=12/6=2, dolayısıyla doğru y=2x+b biçiminde yazılabilir, P noktasını yerine koyunca b=2 çıkar ve x ekseni kesişimi için 0=2x+2 den x=-1 bulunur. Uzaklık için compute_distance ile iki nokta arası Öklid mesafesini hesaplayacağım; sonuç sqrt((7-1)^2+(16-4)^2)=sqrt(180)=6*sqrt(5)≈13.4164 olacak. Sonucu kullanıcıya kısa ve net, Türkçe ve birim belirterek sunacağım.",
+      "tool_calls": [
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "(16-4)/(7-1)"
+          },
+          "result": {
+            "value": 2
+          }
+        },
+        {
+          "name": "solve_equation",
+          "arguments": {
+            "equation": "4 = 1*2 + b",
+            "variable": "b"
+          },
+          "result": {
+            "solution": {
+              "b": 2
+            }
+          }
+        },
+        {
+          "name": "solve_equation",
+          "arguments": {
+            "equation": "0 = 2*x + 2",
+            "variable": "x"
+          },
+          "result": {
+            "solution": {
+              "x": -1
+            }
+          }
+        },
+        {
+          "name": "compute_distance",
+          "arguments": {
+            "point_a": "(1,4)",
+            "point_b": "(7,16)"
+          },
+          "result": {
+            "distance": 13.416407864998739,
+            "exact": "6*sqrt(5)"
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "A(2,-1) ile B(8,5) noktalarını birleştiren doğrunun eğimi kaç, bu doğrunun x eksenini kestiği nokta neresi ve A-B uzaklığı ne çıkar?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "A(2,-1) ile B(8,5) noktalarını birleştiren doğrunun eğimi 1’dir. Bu doğruyun denklemi y = x - 3 olur; dolayısıyla x eksenini kestiği nokta y = 0 iken x = 3 olduğundan (3, 0)’dır. A ile B arasındaki uzaklık ise 6√2 birimdir; yaklaşık değeri 8,49 birimdir.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, A(2,-1) ile B(8,5) arasındaki doğrunun eğimini, x eksenini kestiği noktayı ve iki nokta arasındaki uzaklığı birlikte istiyor. Eğimi doğrudan sayısal olarak bulmak için evaluate_expression aracını seçiyorum; çünkü formül (y2-y1)/(x2-x1) tek adımda değerlendirilebilir. Sonra eğim 1 çıkınca doğrunun denklemini y = x - 3 olarak kurup x eksen kesişimi için y=0 durumunu solve_equation ile çözüyorum; böylece x=3 elde ediyorum ve kesişim noktası (3,0) oluyor. Uzaklık için compute_distance kullanıyorum; farklar 6 ve 6 olduğundan sonuç √(6^2+6^2)=√72=6√2 çıkıyor. Sonuçları exact biçimde ve ayrıca yaklaşık değer gerekiyorsa kısa biçimde kullanıcıya sunacağım.",
+      "tool_calls": [
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "(5-(-1))/(8-2)"
+          },
+          "result": {
+            "value": 1
+          }
+        },
+        {
+          "name": "solve_equation",
+          "arguments": {
+            "equation": "0 = 1*x - 3",
+            "variable": "x"
+          },
+          "result": {
+            "solution": 3
+          }
+        },
+        {
+          "name": "compute_distance",
+          "arguments": {
+            "point_a": "(2,-1)",
+            "point_b": "(8,5)"
+          },
+          "result": {
+            "distance": "6*sqrt(2)",
+            "approximate": 8.48528137423857
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "A(0,0), B(4,6) ve C(10,0) var; AB doğrusunun eğimi, AB'ye paralel olup C'den geçen doğrunun y eksenini kestiği değer, x eksenini kestiği nokta ve A ile C arasındaki uzaklık lazım.",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "İstenenler şöyle:\n- AB doğrusunun eğimi: 3/2\n- B’ye paralel olup C(10,0)’dan geçen doğrunun denklemi: y = (3/2)x - 15\n- Bu doğrunun y eksenini kestiği değer: -15\n- x eksenini kestiği nokta: (10, 0)\n- A(0,0) ile C(10,0) arasındaki uzaklık: 10 birim\n\nKısaca, paralel doğru C noktasından geçtiği için x eksenini zaten C’de keser; y-kesişimi ise -15’tir.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcının A, B, C noktaları için AB doğrusunun eğimini, C’den geçen ve AB’ye paralel doğrunun y-kesişimini, x-kesişim noktasını ve A ile C arasındaki uzaklığı istediğini görüyorum. Eğim için evaluate_expression kullanırım çünkü doğrudan oran hesabı var; paralel doğru için eğimi kullanıp denklem kurarım, x-kesişimi için solve_equation ile x’i çözerim, uzaklık için compute_distance uygularım. Noktaları mesajdan A=(0,0), B=(4,6), C=(10,0) olarak çıkarıyorum. Hesapları doğrulayınca AB eğimi (6-0)/(4-0)=3/2 oluyor; C noktasından geçen paralel doğru y=(3/2)x-15, buradan y-kesişimi -15 ve x-kesişimi (10,0) çıkıyor. A ile C arasındaki uzaklık da yatay doğruda 10 birimdir; sonuçları kısa ve net biçimde sunacağım.",
+      "tool_calls": [
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "(6-0)/(4-0)"
+          },
+          "result": {
+            "value": "3/2"
+          }
+        },
+        {
+          "name": "solve_equation",
+          "arguments": {
+            "equation": "0 = (3/2)*x - 15",
+            "variable": "x"
+          },
+          "result": {
+            "solution": "x = 10"
+          }
+        },
+        {
+          "name": "compute_distance",
+          "arguments": {
+            "point_a": "(0,0)",
+            "point_b": "(10,0)"
+          },
+          "result": {
+            "distance": "10"
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "y=-2x+7 ile 3x+y=1 doğruları nerede kesişiyor, bu kesişim noktasının orijine uzaklığı kaç ve ilk doğru üzerinde x=-3 iken y ne olur?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Doğruların kesişim noktası (-6, 19) olur.\n\n- Bu noktanın orijine uzaklığı: √397 birim ≈ 19,92 birim\n- İlk doğru üzerinde x = -3 iken: y = 13",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı benden üç şeyi istiyor: iki doğrunun kesişim noktası, bu noktanın orijine uzaklığı ve ilk doğru üzerinde x=-3 iken y değeri. Kesişim için y ifadelerini eşitleyip solve_equation kullanıyorum; çünkü tek bilinmeyen x’i doğrudan çözmek en doğru yol. x değerini bulunca y’yi önce kesişim noktasında, sonra x=-3 için evaluate_expression ile hesaplayacağım; orijine uzaklık için de compute_distance uygun. Hesabı doğruladım: -2x+7 = 1-3x den x=-6 çıkıyor, yerine koyunca y=19 oluyor; uzaklık sqrt((-6)^2+19^2)=sqrt(397), yani yaklaşık 19.92 birim; x=-3 için y=13.",
+      "tool_calls": [
+        {
+          "name": "solve_equation",
+          "arguments": {
+            "equation": "-2*x + 7 = 1 - 3*x",
+            "variable": "x"
+          },
+          "result": {
+            "variable": "x",
+            "solution": -6
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "-2*(-6) + 7"
+          },
+          "result": {
+            "expression": "-2*(-6) + 7",
+            "value": 19
+          }
+        },
+        {
+          "name": "compute_distance",
+          "arguments": {
+            "point_a": "(-6,19)",
+            "point_b": "(0,0)"
+          },
+          "result": {
+            "point_a": "(-6,19)",
+            "point_b": "(0,0)",
+            "distance": "sqrt(397)",
+            "approximate_value": 19.924858845171276
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "-2*(-3) + 7"
+          },
+          "result": {
+            "expression": "-2*(-3) + 7",
+            "value": 13
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Depoda robot kolunun geçtiği R(-3,2) ile S(9,-4) noktaları için doğrunun eğimi, eksenleri kestiği noktalar ve iki nokta arası mesafe lazım; çizimi ölçeklemeden önce kontrol edeceğim.",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "R(-3, 2) ve S(9, -4) noktalarından geçen doğrunun eğimi -1/2’dir.\n\nDoğrunun denklemi: y = (-1/2)x + 1/2\n\nEksen kesişimleri:\n- x-eksenini kestiği nokta: (1, 0)\n- y-eksenini kestiği nokta: (0, 1/2)\n\nİki nokta arasındaki uzaklık: 6√5 ≈ 13,42 birim\n\nİstersen bir sonraki adımda bu doğruyu koordinat düzleminde nasıl ölçekle çizeceğini de kontrol edebilirim.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı benden aynı iki nokta için eğimi, eksen kesişimlerini ve iki nokta arasındaki uzaklığı istiyor; bu yüzden önce eğimi sayısal olarak bulup ardından doğru denklemini kurmam gerekiyor. Eğim için evaluate_expression kullanıyorum çünkü işlem doğrudan bir kesir hesabı: (-4-2)/(9-(-3)) = -6/12 = -1/2. Sonra solve_equation ile y - 2 = (-1/2)*(x + 3) denkleminden doğruyu y cinsinden yazıyorum; bu, y-kesişimini de doğruluyor ve x-kesişimi için y=0 koşulunu çözüyorum. Uzaklıkta ise compute_distance ile √((9-(-3))^2 + (-4-2)^2) = √(12^2+(-6)^2) = √180 = 6√5 sonucunu doğrulayıp kullanıcıya tam ve yaklaşık değeri birlikte sunacağım.",
+      "tool_calls": [
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "(-4-2)/(9-(-3))"
+          },
+          "result": {
+            "value": "-1/2",
+            "decimal": -0.5
+          }
+        },
+        {
+          "name": "solve_equation",
+          "arguments": {
+            "equation": "y - 2 = (-1/2)*(x + 3)",
+            "variable": "y"
+          },
+          "result": {
+            "solution": "y = (-1/2)*x + 1/2"
+          }
+        },
+        {
+          "name": "solve_equation",
+          "arguments": {
+            "equation": "(-1/2)*x + 1/2 = 0",
+            "variable": "x"
+          },
+          "result": {
+            "solution": "x = 1"
+          }
+        },
+        {
+          "name": "compute_distance",
+          "arguments": {
+            "point_a": "(-3,2)",
+            "point_b": "(9,-4)"
+          },
+          "result": {
+            "distance": "6*sqrt(5)",
+            "approximate": 13.416407864998739
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Deneme sınıfında 14 öğrenciden 11'i sınavı geçti; normalde geçme oranı yüzde 80 deniyordu, bu grubun daha zayıf olup olmadığını ve p-değerini hesaplar mısın?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Örnek geçme oranı 11/14 = %78,57. H0: geçme oranı %80, H1: geçme oranı %80'den düşük için tam binom teste göre p-değeri 0,551949... yani yaklaşık %55,19'dur. Bu değer 0,05'ten büyük olduğu için bu grubun daha zayıf olduğuna dair istatistiksel olarak yeterli kanıt yok; başka bir deyişle, H0 reddedilmez.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, 14 öğrenciden 11'inin geçtiği örnekte geçme oranının %80'den düşük olup olmadığını ve p-değerini istiyor; bu yüzden tek yönlü tam binom testi kuruyorum. Örnek geçme oranını önce 11/14 = 0,7857 olarak hesaplayıp, H0 altında X~Binom(14, 0,8 varsayımıyla p-değerini P(X≤11) şeklinde alıyorum. Bu değeri tamamlayıcı olasılıkla hesaplamak için C(14,12), C(14,13) ve C(14,14) katsayılarını combinations aracından alacağım; ardından 1 - [C(14,12)0,8^12 0,2^2 + C(14,13)0,8^13 0,2 + C(14,14)0,8^14] ifadesini evaluate_expression ile sayısallaştıracağım. Sonucu yaklaşık 0,552 bulursam, bunu %5 anlamlılık düzeyinde H0 reddedilmez ve grubun daha zayıf olduğuna dair yeterli kanıt yok şeklinde sunacağım.",
+      "tool_calls": [
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "11/14"
+          },
+          "result": {
+            "value": 0.7857142857142857
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "14",
+            "k": "12"
+          },
+          "result": {
+            "value": 91
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "14",
+            "k": "13"
+          },
+          "result": {
+            "value": 14
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "14",
+            "k": "14"
+          },
+          "result": {
+            "value": 1
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "1 - (91*(0.8^12)*(0.2^2) + 14*(0.8^13)*0.2 + 1*(0.8^14))"
+          },
+          "result": {
+            "value": 0.55194901168128
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Bir ilacın yan etki oranının yüzde 25 olduğu düşünülüyordu; 16 hastanın 3'ünde yan etki çıktı, bunun gerçekten daha düşük olup olmadığını, örnek oranı ve p-değerini çıkarır mısın?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Örnek yan etki oranı 3/16 = 0.1875, yani %18.75’tir.\n\n“Gerçekten daha düşük mü?” sorusu için tek yönlü tam binom testi altında p-değerini hesapladım: P(X≤3), X~Bin(16, 0.25).\n- P(X=0) = 0.0100225958\n- P(X=1) = 0.0534538440\n- P(X=2) = 0.1336346101\n- P(X=3) = 0.2078762602\n\nToplam p-değeri = 0.4049873101 ≈ 0.405.\n\nBu p-değeri 0.05’ten büyük olduğu için, bu örneğe dayanarak yan etki oranının %25’ten daha düşük olduğuna dair yeterli kanıt yoktur.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, 16 hastada 3 yan etki gözlemiyle, varsayılan yan etki oranının %25’ten gerçekten daha düşük olup olmadığını ve örnek oranı ile p-değerini istiyor. Önce örnek oranını 3/16 = 0.1875 olarak çıkarırım; bu, yüzde 18.75’e karşılık gelir. Bu soruda yönlü hipotez testi gerektiği için ve elindeki araçlarda özel dağılım fonksiyonu olmadığı için tam binom testini seçerim; p-değerini P(X≤3) olarak, X~Bin(16,0.25) altında hesaplayacağım. Bunun için C(16,k) katsayılarını k=0,1,2,3 için alıp her terimi C(16,k)·(0.25)^k·(0.75)^(16-k) biçiminde hesaplar, sonra toplarım. Sonuç yaklaşık 0.40499 çıkıyor; bu değer 0.05’ten büyük olduğu için, yan etki oranının %25’ten daha düşük olduğuna dair yeterli kanıt yok diye sunarım.",
+      "tool_calls": [
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "3/16"
+          },
+          "result": {
+            "value": 0.1875
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "16",
+            "k": "0"
+          },
+          "result": {
+            "value": 1
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "16",
+            "k": "1"
+          },
+          "result": {
+            "value": 16
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "16",
+            "k": "2"
+          },
+          "result": {
+            "value": 120
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "16",
+            "k": "3"
+          },
+          "result": {
+            "value": 560
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "(3/4)^16"
+          },
+          "result": {
+            "value": 0.01002259575761859
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "16*(1/4)*(3/4)^15"
+          },
+          "result": {
+            "value": 0.05345384404063249
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "120*(1/4)^2*(3/4)^14"
+          },
+          "result": {
+            "value": 0.13363461010158123
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "560*(1/4)^3*(3/4)^13"
+          },
+          "result": {
+            "value": 0.20787626015854496
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "(3/4)^16 + 16*(1/4)*(3/4)^15 + 120*(1/4)^2*(3/4)^14 + 560*(1/4)^3*(3/4)^13"
+          },
+          "result": {
+            "value": 0.40498731005837724
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Çağrı merkezinde 24 görüşmeden 19'u 3 dakikanın altında kapandı; hedef oran yüzde 70'ti, bu haftaki sonuçların üstüne çıkılmış mı, gerçekleşen oranı ve p-değerini merak ediyorum.",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Evet, gerçekleşen oran hedefin üstüne çıkmış görünüyor: 24 görüşmenin 19’u 3 dakikanın altında kapandığı için oran 19/24 = 0,7917, yani %79,17. Bu değer, hedeflenen %70’in yaklaşık 9,17 puan üstünde.\n\nHipotez testini tek yönlü kesin binom test olarak kurarsak:\n- H0: gerçek oran = %70\n- H1: gerçek oran > %70\n\nBu durumda p-değeri P(X≥19) = 0,2288 çıktı. Yani sonuç hedefi aşsa da, bu farkın istatistiksel olarak anlamlı olduğuna dair yeterli kanıt yok (örneğin %5 anlamlılık düzeyinde H0 reddedilmez).",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı 24 görüşmenin 19’unda sürenin 3 dakikanın altında kalıp kalmadığını, hedef oran olan %70’in aşılıp aşılmadığını ve buna ait p-değerini soruyor. Önce gerçekleşen oranı hesaplıyorum: 19/24 = 0,791666..., yani %79,17 ve bu, %70 hedefinin üzerindedir. P-değeri için tek yönlü kesin binom testini kullanıyorum: H0 altında p=0,70 ve p-değeri P(X≥19) = Σ[k=19..24] C(24,k)·0,7^k·0,3^(24-k) formülüyle bulunur. Kombinasyon katsayılarını ayrı ayrı doğrulayıp toplamı sayısal olarak hesaplayacağım; beklenen sonuç yaklaşık 0,2288 olduğu için 0,05 düzeyinde hedefin üstüne çıkıldığına dair güçlü kanıt çıkmayacağını kullanıcıya net söyleyeceğim.",
+      "tool_calls": [
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "24",
+            "k": "19"
+          },
+          "result": {
+            "value": 42504
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "24",
+            "k": "20"
+          },
+          "result": {
+            "value": 10626
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "24",
+            "k": "21"
+          },
+          "result": {
+            "value": 2024
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "24",
+            "k": "22"
+          },
+          "result": {
+            "value": 276
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "24",
+            "k": "23"
+          },
+          "result": {
+            "value": 24
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "24",
+            "k": "24"
+          },
+          "result": {
+            "value": 1
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "42504*(0.7^19)*(0.3^5) + 10626*(0.7^20)*(0.3^4) + 2024*(0.7^21)*(0.3^3) + 276*(0.7^22)*(0.3^2) + 24*(0.7^23)*(0.3^1) + 1*(0.7^24)"
+          },
+          "result": {
+            "value": 0.22880832731941497
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Yeni paketleme denemesinde 20 müşteriden 15'i ürünü aldıktan sonra tekrar satın alacağını söylemiş; eski kabul oranı yüzde 60 kabul ediliyordu, bu veriyle daha iyiye gidilmiş mi, gözlenen oranı ve tek yönlü p-değerini de söyle.",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Gözlenen tekrar satın alma oranı 15/20 = %75,0. Eski kabul oranı %60 olduğu için oran daha yükseğe çıkmış görünüyor; ancak tek yönlü kesin binom p-değeri yaklaşık 0,1256. Bu değer 0,05’ten büyük olduğu için, bu veriyle paketlemenin gerçekten daha iyiye gittiğine dair yeterli istatistiksel kanıt yok.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Önce kullanıcının 20 müşteri içinden 15’inin tekrar satın alma niyeti bildirdiğini ve eski kabul oranının %60 olduğunu anlıyorum; bu, tek yönlü bir oran testi ve p-değeri sorusu. Gözlenen oranı 15/20 = 0,75 olarak hesaplayacağım ve H1: p > 0,60 için kesin binom p-değerini bulmak üzere C(20,k) terimlerini k=15’ten 20’ye kadar toplayacağım. Bunun için kombinasyon araçlarını k=15..20 için ayrı ayrı çağırıp ardından sayısal toplamı evaluate_expression ile doğrulayacağım. Sonucu yüzde ve p-değeri olarak net vereceğim; p-değeri 0,05’ten büyük çıkarsa iyileşme için yeterli istatistiksel kanıt olmadığını açıkça söyleyeceğim.",
+      "tool_calls": [
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "20",
+            "k": "15"
+          },
+          "result": {
+            "value": 15504
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "20",
+            "k": "16"
+          },
+          "result": {
+            "value": 4845
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "20",
+            "k": "17"
+          },
+          "result": {
+            "value": 1140
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "20",
+            "k": "18"
+          },
+          "result": {
+            "value": 190
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "20",
+            "k": "19"
+          },
+          "result": {
+            "value": 20
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "20",
+            "k": "20"
+          },
+          "result": {
+            "value": 1
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "15/20"
+          },
+          "result": {
+            "value": 0.75
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "15504*(0.6^15)*(0.4^5) + 4845*(0.6^16)*(0.4^4) + 1140*(0.6^17)*(0.4^3) + 190*(0.6^18)*(0.4^2) + 20*(0.6^19)*(0.4) + 1*(0.6^20)"
+          },
+          "result": {
+            "value": 0.1255989727230375
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Uygulamanın yeni sürümünde 30 kullanıcıdan 21'i 'yeniden kullanırım' demiş; eski oran yüzde 60 kabul ediliyordu, burada oran yükselmiş mi, yüzdesini ve tek yönlü p-değerini söyler misin?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Evet, oran yükselmiş: 21/30 = %70. Bu, eski kabul edilen %60'a göre 10 yüzde puanlık artış demek. H0: p=0,60 ve H1: p>0,60 için tek yönlü exact binom p-değeri P(X≥21) ≈ 0,1778. Yani sonuç artış yönünde olsa da, %5 anlamlılık düzeyinde istatistiksel olarak anlamlı sayılmaz.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı yeni sürümdeki oranı eski %60 ile karşılaştırıp tek yönlü p-değerini istiyor; bu nedenle örnek oranı ve binom üst kuyruk olasılığını hesaplamalıyım. Önce 21/30 = 0.70 sonucunu alıp bunun %70 olduğunu doğrularım; eski orana göre fark 0.10, yani 10 yüzde puandır. Ardından H0: p=0.60 ve H1: p>0.60 altında X~Bin(30,0.60) için P(X≥21) değerini toplarım; bunun için C(30,k) kombinasyonlarını 21'den 30'a kadar kullanıp kuyruk toplamını kurarım. Toplamı 0.1777966000... olarak doğruluyorum; bu değer 0.05'in üstünde olduğu için artış yönünde kanıt var ama istatistiksel olarak anlamlı değil.",
+      "tool_calls": [
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "21 / 30 * 100"
+          },
+          "result": {
+            "value": 70
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "30",
+            "k": "21"
+          },
+          "result": {
+            "value": 14307150
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "30",
+            "k": "22"
+          },
+          "result": {
+            "value": 5852925
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "30",
+            "k": "23"
+          },
+          "result": {
+            "value": 2035800
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "30",
+            "k": "24"
+          },
+          "result": {
+            "value": 593775
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "30",
+            "k": "25"
+          },
+          "result": {
+            "value": 142506
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "30",
+            "k": "26"
+          },
+          "result": {
+            "value": 27405
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "30",
+            "k": "27"
+          },
+          "result": {
+            "value": 4060
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "30",
+            "k": "28"
+          },
+          "result": {
+            "value": 435
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "30",
+            "k": "29"
+          },
+          "result": {
+            "value": 30
+          }
+        },
+        {
+          "name": "combinations",
+          "arguments": {
+            "n": "30",
+            "k": "30"
+          },
+          "result": {
+            "value": 1
+          }
+        },
+        {
+          "name": "evaluate_expression",
+          "arguments": {
+            "expression": "0.082275279274828 + 0.05048710319137173 + 0.02634109731723742 + 0.011524230076291372 + 0.004148722827464894 + 0.002393493169691285 + 0.000531887371042508 + 0.00008549975534611557 + 0.000008844802276494713 + 0.0000004422401138247357"
+          },
+          "result": {
+            "value": 0.1777966000256636
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Ajansın verdiği hizmet bedeli 123.000 TL. Önce yüzde 15 sezon indirimi düşüyorlar, sonra kalan ücrete yüzde 20 KDV ekliyorlar. Müşteriye kesilecek fatura tutarını merak ediyorum.",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Müşteriye kesilecek fatura tutarı 125.460 TL olur.\n\nHesap sırası:\n- Hizmet bedeli: 123.000 TL\n- %15 sezon indirimi: 18.450 TL\n- İndirim sonrası tutar: 104.550 TL\n- Bu tutara %20 KDV: 20.910 TL\n- Toplam fatura: 125.460 TL",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcının istediği şey, hizmet bedeline önce yüzde 15 indirim uygulanıp sonra kalan tutara yüzde 20 KDV eklenerek faturanın toplamını bulmak. Bu işlem temel aritmetik olduğu için hiçbir araca ihtiyaç duymuyorum; zihinden ve kesin hesapla ilerleyebilirim. Önce indirim tutarını hesaplıyorum: 123.000 TL × 0,15 = 18.450 TL; bunu ana bedelden çıkarınca 104.550 TL kalır. Ardından KDV’yi kalan tutar üzerinden hesaplıyorum: 104.550 TL × 0,20 = 20.910 TL; toplam fatura 104.550 TL + 20.910 TL = 125.460 TL oluyor ve hesap tutarlı.",
+      "tool_calls": null
+    }
+  ],
+  [
+    {
+      "content": "Bir klima için listede 7.800 TL yazıyor. Bayi yüzde 22 kampanya indirimi yapıyor, peşin ödersem bir de indirimli tutarın üstüne yüzde 8 KDV biniyor. Kasadaki son rakam ne olur?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Kasada ödenecek son tutar 6.570,72 TL olur. Hesap şöyle: 7.800 TL üzerine önce yüzde 22 indirim uygulanınca fiyat 6.084 TL’ye düşer; ardından bu indirimli tutara yüzde 8 KDV eklenince 486,72 TL KDV gelir. Toplam ödeme 6.570,72 TL’dir.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, listedeki 7.800 TL’lik klima için önce yüzde 22 indirim uygulanınca oluşan ara tutarı ve ardından bu indirimli tutara yüzde 8 KDV eklenince kasada ödenecek son fiyatı soruyor. Bu işlem kafadan ve tanımdan kolayca yapılabildiği için hiçbir araç çağırmıyorum. Önce indirim tutarını hesapladım: 7.800 × 0,22 = 1.716 TL; böylece indirimli fiyat 7.800 - 1.716 = 6.084 TL olur. Sonra KDV’yi indirimli tutar üzerinden ekledim: 6.084 × 0,08 = 486,72 TL; toplam da 6.084 + 486,72 = 6.570,72 TL çıkar. Sonucu TL cinsinden, kısa ve net biçimde sunacağım.",
+      "tool_calls": null
+    }
+  ],
+  [
+    {
+      "content": "Dün mağazada 2.450 TL etiketli montu aldım. Kasada önce yüzde 35 indirim yaptılar, sonra kalan tutara yüzde 20 KDV eklediler. Karttan ne çekilmiş olması lazım?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Karttan çekilmiş olması gereken tutar 1.911 TL’dir.\n\nHesap şöyle:\n- 2.450 TL’nin %35 indirimi sonrası kalan tutar: 2.450 × 0,65 = 1.592,50 TL\n- Bu tutara %20 KDV eklenince: 1.592,50 × 1,20 = 1.911,00 TL\n\nYani kasada toplam 1.911 TL çekilmiş olması gerekir.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, etiket fiyatı 2.450 TL olan mont için önce %35 indirim, sonra kalan tutara %20 KDV uygulandığında karttan ne çekilmesi gerektiğini soruyor. Bu senaryoda araç çağırmam gerekmiyor; çünkü işlem basit yüzde hesabı olarak doğrudan çözülebilir. Önce indirim sonrası tutarı 2.450 × 0,65 = 1.592,50 TL olarak bulurum, ardından KDV ile 1.592,50 × 1,20 = 1.911,00 TL sonucunu doğrularım. Sonucu kullaniciya net biçimde, ara adımları kısa ama açık vererek ve TL birimiyle sunarım.",
+      "tool_calls": null
+    }
+  ],
+  [
+    {
+      "content": "Toptancıdan 18 adet kahve kutusu aldım, kutu başı 1.680 TL. Faturada önce yüzde 12 iskonto, ardından iskonto sonrası tutara yüzde 10 KDV uygulanmış. Toplam borç kaç TL çıkar?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Toplam borç 29.272,32 TL çıkar.\n\nHesaplama sırası şöyle:\n- 18 × 1.680 TL = 30.240 TL\n- %12 iskonto sonrası: 30.240 TL × 0,88 = 26.611,20 TL\n- %10 KDV sonrası: 26.611,20 TL × 1,10 = 29.272,32 TL",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, 18 kutu kahvenin toplam borcunu; önce yüzde 12 iskonto, sonra iskonto sonrası tutara yüzde 10 KDV uygulanarak bulmamı istiyor. Bu işlem temel aritmetik olduğu için hiçbir araç çağırmıyorum; sayıları mesajdan doğrudan alıp zihinden hesaplıyorum. Önce brüt tutarı 18 × 1.680 = 30.240 TL olarak buluyorum; ardından %12 iskontoyla 30.240 × 0,88 = 26.611,20 TL'ye iniyor. Son olarak %10 KDV ekleyince 26.611,20 × 1,10 = 29.272,32 TL sonucunu elde ediyorum ve bunu net biçimde TL birimiyle sunacağım.",
+      "tool_calls": null
+    }
+  ],
+  [
+    {
+      "content": "Ofis için 6 tane sandalye ve 2 masa aldık. Etiket toplamı 14.750 TL çıktı. Satıcı yüzde 17 toplu alım indirimi yapıyor, indirim sonrası tutara yüzde 20 KDV ekliyor. Nakit ödemede kaç TL tutar?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Nakit ödemede toplam tutar 14.691,00 TL olur.\n\nHesap özeti:\n- Etiket toplamı: 14.750 TL\n- %17 indirim: 2.507,50 TL\n- İndirimli tutar: 12.242,50 TL\n- %20 KDV: 2.449,50 TL\n- Son ödeme: 14.691,00 TL",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, toplam etiket tutarı üzerinden önce yüzde 17 indirim, sonra indirimli tutara yüzde 20 KDV uygulanınca nakit ödemede kaç TL çıkacağını soruyor. Bu işlem temel yüzde hesabı olduğu için hiçbir araç çağırmıyorum; çünkü toplama, çıkarma ve yüzde çarpanlarını zihinden güvenle hesaplayabilirim. Önce 14.750 TL’nin %17 indirimi 2.507,50 TL eder; indirim sonrası tutar 14.750 - 2.507,50 = 12.242,50 TL olur. Sonra bu tutarın %20 KDV’si 12.242,50 × 0,20 = 2.449,50 TL’dir; toplam ödeme 12.242,50 + 2.449,50 = 14.691,00 TL çıkar. Hesabı bir kez daha kontrol edince aynı sonuca ulaşıyorum, bu yüzden sonucu net biçimde tek rakamla sunacağım.",
+      "tool_calls": null
+    }
+  ],
+  [
+    {
+      "content": "Ders notlarımda şu denklem kaldı: log2(x-1) + log2(x+1) = 3. Pozitif çözüm hangisi?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Denklemin pozitif çözümü 3’tür.\n\nKısaca: log2(x-1) + log2(x+1) = 3 denklemi için aday kökler -3 ve 3 çıkar; ancak logaritmaların tanımlı olması için x > 1 gerekir. Bu nedenle geçerli çözüm yalnızca 3’tür.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, logaritmalı bir denklemin pozitif çözümünü istiyor. Bu tür bir soruda uygun araç solve_equation; çünkü amaç bir ifadeyi hesaplamak değil, denklemin gerçek köklerini bulmak. Parametre olarak denklemi mesajdan doğrudan \"log2(x-1) + log2(x+1) = 3\" şeklinde alırım ve değişkeni \"x\" olarak belirtirim. Çözümde logaritma kurallarına göre denklem log2((x-1)(x+1)) = 3 olur, buradan (x-1)(x+1)=8, yani x^2-1=8 ve x^2=9 elde edilir; aday kökler -3 ve 3'tür. Ancak tanım gereği x-1>0 ve x+1>0 olduğundan x>1 olmalı, bu yüzden geçerli ve pozitif çözüm 3'tür.",
+      "tool_calls": [
+        {
+          "name": "solve_equation",
+          "arguments": {
+            "equation": "log2(x-1) + log2(x+1) = 3",
+            "variable": "x"
+          },
+          "result": {
+            "real_roots": [
+              3
+            ],
+            "all_candidate_roots": [
+              -3,
+              3
+            ],
+            "domain": "x > 1",
+            "checked_valid_solution": 3
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Şu ifadeyi çözmeye çalışıyorum: ln(x) + ln(x-4) = ln(21). Pozitif kök ne çıkıyor?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Denklemin pozitif ve geçerli kökü 7’dir. \n\nKısa kontrol:\n- ln(x) + ln(x-4) = ln(x(x-4))\n- x(x-4) = 21\n- x^2 - 4x - 21 = 0\n- Kökler: x = 7 ve x = -3\n- Logaritmalar için x > 4 olmalı, bu yüzden geçerli çözüm yalnızca 7’dir.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcının istediği şey, verilen logaritmik denklemin pozitif kökünü bulmak. Bu yüzden doğrudan solve_equation aracını seçiyorum; çünkü denklem çözümü için uygun araç bu ve başka bir araca gerek yok. Parametreleri mesajdan açıkça çıkarıyorum: denklem \"ln(x) + ln(x-4) = ln(21)\", değişken ise \"x\". Denklemi kontrol ettiğimde tanım kümesi x>4 olmalı; çözüm kümesi içinden gerçek kökler -3 ve 7 gelir, fakat tanım koşulunu sağlayan ve pozitif olan geçerli kök 7'dir; yanıtı kısa ve net biçimde sunacağım.",
+      "tool_calls": [
+        {
+          "name": "solve_equation",
+          "arguments": {
+            "equation": "ln(x) + ln(x-4) = ln(21)",
+            "variable": "x"
+          },
+          "result": {
+            "solutions": [
+              7
+            ],
+            "all_real_roots": [
+              -3,
+              7
+            ],
+            "domain": "x > 4",
+            "valid_solutions": [
+              7
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Bir yatırımın değeri her yıl yüzde 8 artıyormuş. Başlangıçta 1 liraysa 2 liraya ne zaman ulaşır?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Başlangıçtaki 1 lira, yıllık %8 bileşik artışla yaklaşık 9,01 yıl sonra 2 liraya ulaşır.\n\nDenklem: 1.08^t = 2\nÇözüm: t = ln(2) / ln(1.08) ≈ 9,0065\n\nYani yatırım, 9 yılın biraz üzerinde 2 lirayı görür.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, değeri her yıl %8 artan bir yatırımın 1 liradan 2 liraya ne zaman ulaşacağını soruyor; bu, doğrudan üstel denklem çözümüdür. Bu yüzden tek uygun aracı solve_equation olarak seçiyorum; çünkü sorun ne birim dönüşümü ne de bileşik faiz tutarı hesaplaması, sadece 1.08^t = 2 denklemindeki t değişkenini bulmaktır. Mesajdan denklem kısmını \"1.08^t = 2\" ve değişken adını \"t\" olarak çıkarıyorum; böylece gereksiz başka çağrı yapmıyorum. Kontrol için logaritma ile t = ln(2) / ln(1.08) hesaplarım; bu değer yaklaşık 9.0065 çıkar ve 1.08^9.0065 ≈ 2 olduğundan sonuç tutarlıdır. Sonucu kullanıcıya yaklaşık değerle, yıl birimiyle ve kısa bir doğrulama cümlesiyle sunacağım.",
+      "tool_calls": [
+        {
+          "name": "solve_equation",
+          "arguments": {
+            "equation": "1.08^t = 2",
+            "variable": "t"
+          },
+          "result": {
+            "variable": "t",
+            "real_solutions": [
+              9.006468342000595
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Pil kapasitesi her döngüde yüzde 8 azalıyor. Bu durum 0.92^n = 0.5 denklemiyle modellenirse n yaklaşık kaç çıkar?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Denklemin çözümüne göre n yaklaşık 8,31 çıkar. Yani pil kapasitesi %50’ye yaklaşık 8 ila 9 döngü arasında, daha kesin olarak 8,31 döngüde düşer.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcı, pil kapasitesinin her döngüde %8 azalması durumunu 0.92^n = 0.5 denklemiyle modellenince n’in yaklaşık değerini soruyor. Bu yüzden doğrudan denklemi çözen solve_equation aracını seçiyorum; türev ya da bileşik faiz aracı bu görev için uygun değil. Parametreleri mesajdan aynen alıyorum: equation olarak '0.92^n = 0.5' ve değişken olarak 'n'. Çözümün yaklaşık n = ln(0.5)/ln(0.92) ≈ 8.31 olduğunu doğruluyorum; ayrıca 0.92^8 ≈ 0.513 ve 0.92^9 ≈ 0.472 olduğundan sonucun 8 ile 9 arasında olması da tutarlı. Sonucu kullanıcıya kısa ve net biçimde, döngü sayısı olarak açıklayacağım.",
+      "tool_calls": [
+        {
+          "name": "solve_equation",
+          "arguments": {
+            "equation": "0.92^n = 0.5",
+            "variable": "n"
+          },
+          "result": {
+            "variable": "n",
+            "real_roots": [
+              8.313
+            ],
+            "approximation": 8.31
+          }
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "content": "Bir ölçüm formülünde log_3(x) + log_3(x-2) = 2 yazıyor. Geçerli x kaç olur?",
+      "images": null,
+      "role": "user",
+      "thinking": null,
+      "tool_calls": null
+    },
+    {
+      "content": "Geçerli çözüm yalnızca x = 1 + √10 değeridir; bu da yaklaşık x = 4,1623 eder. Logaritmaların tanımı gereği x > 2 olmalı, bu yüzden diğer cebirsel kök geçersizdir.",
+      "images": null,
+      "role": "assistant",
+      "thinking": "Kullanıcının logaritmalı bir denklemde geçerli x değerini sorduğunu görüyorum. Bu yüzden solve_equation aracını seçiyorum; çünkü istenen şey bir denklemi çözmek ve başka bir araca ihtiyaç yok. Parametre olarak denklemi 'log_3(x) + log_3(x-2) = 2' ve değişkeni 'x' olarak çıkarıyorum; tanım gereği x>2 olmalı, logları birleştirince x(x-2)=9 ve buradan x^2-2x-9=0 elde edilir. Çözümler 1±√10 olsa da yalnızca x=1+√10 tanım aralığını sağlar; sonucu yaklaşık 4,1623 olarak sunacağım.",
+      "tool_calls": [
+        {
+          "name": "solve_equation",
+          "arguments": {
+            "equation": "log_3(x) + log_3(x-2) = 2",
+            "variable": "x"
+          },
+          "result": {
+            "exact": "1 + sqrt(10)",
+            "approx": 4.16227766016838,
+            "valid_roots": [
+              4.16227766016838
+            ],
+            "domain": "x > 2"
+          }
+        }
+      ]
+    }
   ]
 ]
