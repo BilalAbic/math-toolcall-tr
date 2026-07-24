@@ -26,10 +26,7 @@ dataset_info:
       dtype: string
   splits:
   - name: train
-    num_bytes: 1669009
-    num_examples: 1207
-  download_size: 1668167
-  dataset_size: 1669009
+    num_examples: 2127
 configs:
 - config_name: default
   data_files:
@@ -39,11 +36,11 @@ configs:
 
 # math-toolcall-tr
 
-Türkçe **matematik odaklı fonksiyon çağırma (tool calling)** veri seti — 1.207 örnek,
+Türkçe **matematik odaklı fonksiyon çağırma (tool calling)** veri seti — 2.127 örnek,
 ShareGPT formatında, düşünme adımları (`<think>`) dahil.
 
 > **EN:** A Turkish synthetic dataset for training LLMs to call math functions correctly
-> and present the results clearly. 1,207 ShareGPT-format conversations with reasoning
+> and present the results clearly. 2,127 ShareGPT-format conversations with reasoning
 > traces, covering 70 math topics and 8 tool-calling scenarios.
 
 ## Ne öğretir
@@ -53,7 +50,7 @@ ShareGPT formatında, düşünme adımları (`<think>`) dahil.
 1. **Doğru araç seçimi ve parametre çıkarımı** — gereksiz çağrı yapmamak dahil.
 2. **Ham sayısal çıktıyı kullanıcıya doğal dille anlatmak.**
 
-Veri seti kasıtlı olarak sadece "başarılı çağrı" öğretmez. Örneklerin **%31'inde hiç
+Veri seti kasıtlı olarak sadece "başarılı çağrı" öğretmez. Örneklerin **%29,6'sında hiç
 araç çağrılmaz**: ya soru zaten bilgiyle cevaplanabilir, ya da zorunlu bir parametre
 eksiktir ve model uydurmak yerine netleştirme sorusu sorar.
 
@@ -95,30 +92,31 @@ değil, yorumlamayı** öğrenmesini sağlar — kayıp yalnızca `gpt` turları
 
 | Alt alan | Örnek | Alt alan | Örnek |
 |---|---|---|---|
-| cebir | 154 | olasilik_kombinatorik | 79 |
-| analiz | 116 | birim_olcu | 75 |
-| finansal_matematik | 112 | istatistik | 75 |
-| geometri | 110 | ayrik_matematik | 60 |
-| aritmetik | 106 | optimizasyon | 50 |
-| trigonometri | 100 | | |
-| sayi_teorisi | 90 | | |
-| lineer_cebir | 80 | | |
+| cebir | 275 | olasilik_kombinatorik | 145 |
+| analiz | 192 | birim_olcu | 140 |
+| finansal_matematik | 186 | istatistik | 155 |
+| geometri | 205 | ayrik_matematik | 105 |
+| aritmetik | 171 | optimizasyon | 86 |
+| trigonometri | 146 | | |
+| sayi_teorisi | 181 | | |
+| lineer_cebir | 140 | | |
 
 ### Senaryolar
 
 | Senaryo | Örnek | Ne öğretir |
 |---|---|---|
-| `arac_gereksiz` | 186 | Araç gerekmiyorsa çağırmamak |
-| `tek_cagri` | 170 | Tek aracı doğru parametreyle çağırmak |
-| `hata_yonetimi` | 161 | Sıfıra bölme / tanımsızlık gibi hataları açıklamak |
-| `yanlis_arac_tuzagi` | 160 | Benzer isimli araçlar arasından doğrusunu seçmek |
-| `eksik_parametre` | 151 | Uydurmak yerine netleştirme sorusu sormak |
-| `cok_adimli_gorev` | 134 | Tek istekte 3+ çağrıyla tamamlamak |
-| `paralel_cagri` | 130 | Bağımsız hesapları aynı anda yapmak |
-| `zincirli_cagri` | 115 | İkinci çağrının girdisini ilkinin sonucundan almak |
+| `arac_gereksiz` | 318 | Araç gerekmiyorsa çağırmamak |
+| `tek_cagri` | 305 | Tek aracı doğru parametreyle çağırmak |
+| `hata_yonetimi` | 276 | Sıfıra bölme / tanımsızlık gibi hataları açıklamak |
+| `yanlis_arac_tuzagi` | 286 | Benzer isimli araçlar arasından doğrusunu seçmek |
+| `eksik_parametre` | 237 | Uydurmak yerine netleştirme sorusu sormak |
+| `cok_adimli_gorev` | 220 | Tek istekte 3+ çağrıyla tamamlamak |
+| `paralel_cagri` | 255 | Bağımsız hesapları aynı anda yapmak |
+| `zincirli_cagri` | 230 | İkinci çağrının girdisini ilkinin sonucundan almak |
 
-**Zorluk:** kolay 456 · orta 346 · zor 405
-**Çoklu çağrı içeren örnek:** 406
+**Zorluk:** kolay 819 · orta 603 · zor 705
+
+**Araç çağrısı olmayan örnek:** 629 · **Çoklu çağrı içeren örnek:** 761
 
 ## Kullanım
 
@@ -170,8 +168,25 @@ Tekrar eden sorular elenir. Konu dağılımı, işlenmemiş konular önceliklend
 Gemma-4 E4B üzerine LoRA (r=8) ile eğitilmiştir; 3 epoch, `train_on_responses_only`.
 
 > ⚠️ **Sürüm farkı:** Bu adaptör, veri setinin **757 örneklik daha eski bir anlık
-> görüntüsüyle** eğitilmiştir — buradaki güncel 1.207 örnekle **değil**. Güncel sürümle
+> görüntüsüyle** eğitilmiştir — buradaki güncel 2.127 örnekle **değil**. Güncel sürümle
 > yeniden eğitim henüz yapılmamıştır.
+
+## İlgili modelin benchmark sonuçları
+
+Bu veri setinin ilk 757 kaydıyla eğitilen LoRA adaptörü, eğitimde görülmeyen 571 kayıt
+arasından senaryo dengeli seçilmiş 150 örnekte değerlendirilmiştir:
+
+| Matematik Tool-Call metriği | Base | Fine-tune | Fark |
+|---|---:|---:|---:|
+| Genel doğruluk | %56,67 | %59,33 | +2,66 puan |
+| Araç seçimi | %53,77 | %54,72 | +0,95 puan |
+| Çekimserlik (`abstain`) | %63,64 | %70,45 | +6,81 puan |
+| Format geçerliliği | %98,67 | %99,33 | +0,66 puan |
+
+Bu tablo veri setinin doğrudan bir kalite skoru değildir; belirli bir Gemma-4 E4B LoRA
+eğitiminin sonucudur. Türkçe MMLU ve GSM8K dahil tam değerlendirme, ilgili
+[model kartında](https://huggingface.co/bilalabic/gemma_4_math-toolcall-tr_lora)
+raporlanmıştır.
 
 ## Sınırlamalar
 
@@ -183,7 +198,7 @@ bilinmesi gerekenler:
   yönlendirilmiştir ancak doğrulukları garanti edilemez.
 - **Matematiksel hatalar mümkündür.** Prompt matematiksel doğruluğu şart koşar ve
   incelenen örneklerde hesaplar doğrudur, ancak tüm örnekler tek tek doğrulanmamıştır.
-- **Senaryo tutarsızlığı: %3,1.** 37 örnekte araç çağrısı beklenirken çağrı listesi
+- **Senaryo tutarsızlığı: %3,5.** 74 örnekte araç çağrısı beklenirken çağrı listesi
   boştur (çoğunlukla `hata_yonetimi` senaryosunda). Kritik uygulamalarda bu örnekler
   filtrelenebilir.
 - **Tek model kaynaklı.** Tamamı tek bir modelden üretildiği için o modelin üslup ve

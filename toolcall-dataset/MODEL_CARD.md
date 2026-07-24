@@ -171,19 +171,64 @@ kullanıcı ve `tool_response` turları maskelenir. Bu sayede model araç sonucu
 | Ayrılan bellek | ≈ 10,3 GB |
 
 > ⚠️ **Sürüm farkı — önemli.** Bu adaptör, veri setinin **757 örneklik daha eski bir
-> anlık görüntüsüyle** eğitilmiştir. Veri seti o tarihten sonra **1.207 örneğe**
+> anlık görüntüsüyle** eğitilmiştir. Veri seti o tarihten sonra **2.127 örneğe**
 > genişletilmiştir ve güncel sürümle **yeniden eğitim henüz yapılmamıştır**.
 > Dolayısıyla buradaki ağırlıklar, veri setinin bugünkü hâlinin tamamını görmemiştir.
+
+## Değerlendirme
+
+Adaptör, aynı temel modelin LoRA uygulanmamış hâliyle üç benchmark üzerinde
+karşılaştırılmıştır. Sonuçlar tek bir çalıştırmaya aittir; güven aralığı veya birden
+fazla seed ortalaması değildir.
+
+| Benchmark | Metrik | Base | Fine-tune | Fark |
+|---|---|---:|---:|---:|
+| Türkçe MMLU | Doğruluk | %75,20 (188/250) | %68,00 (170/250) | **−7,20 puan** |
+| Matematik Tool-Call | Genel doğruluk | %56,67 | %59,33 | **+2,66 puan** |
+| Matematik Tool-Call | Araç seçimi | %53,77 | %54,72 | **+0,95 puan** |
+| Matematik Tool-Call | Çekimserlik (`abstain`) | %63,64 | %70,45 | **+6,81 puan** |
+| Matematik Tool-Call | Format geçerliliği | %98,67 | %99,33 | **+0,66 puan** |
+| GSM8K | Doğruluk | %66,00 (99/150) | %73,33 (110/150) | **+7,33 puan** |
+| GSM8K | Gereksiz araç çağrısı (düşük daha iyi) | %0,00 | %14,00 | **+14,00 puan** |
+
+### Test düzeni
+
+- **Türkçe MMLU:** 250 çoktan seçmeli örnek; genel bilginin eğitim sonrasında korunup
+  korunmadığını ölçer.
+- **Matematik Tool-Call:** Eğitimde kullanılan ilk 757 kayıttan sonra gelen, modelin
+  eğitim sırasında görmediği 571 kayıt arasından senaryo dengeli seçilmiş 150 örnek.
+  Eğitim ve değerlendirme kümelerinin sırası korunmuş ve aralarında çakışma olmadığı
+  doğrulanmıştır.
+- **GSM8K:** Standart test bölümünden 150 İngilizce matematik problemi. Doğruluğun
+  yanında, araç sunulmayan standart sorularda modelin kendiliğinden `<tool_call>`
+  üretip üretmediği de ölçülmüştür.
+
+### Sonuçların yorumu
+
+Fine-tune, hedeflenen tool-calling görevinde sınırlı fakat tutarlı bir artış sağlamıştır.
+En belirgin kazanım, araç çağırmaması gereken örneklerdeki çekimserliktir
+(+6,81 puan). GSM8K doğruluğu da 7,33 puan yükselmiştir.
+
+Bununla birlikte iki önemli gerileme vardır:
+
+1. Türkçe MMLU doğruluğu 7,20 puan düşmüştür; bu sonuç genel bilgi üzerinde
+   **catastrophic forgetting / alan daralması riski** bulunduğunu gösterir.
+2. Fine-tune, araç verilmeyen GSM8K sorularının %14'ünde gereksiz `<tool_call>`
+   üretmiştir. Bu, modelin eğitim formatına aşırı uyum gösterebildiğini belirtir.
+
+Bu nedenle adaptör, genel amaçlı temel modelin doğrudan yerine geçen bir yükseltme
+olarak değil, Türkçe matematik tool-calling için deneysel bir adaptör olarak
+değerlendirilmelidir.
 
 ## Eğitim verisi
 
 [`bilalabic/math-toolcall-tr`](https://huggingface.co/datasets/bilalabic/math-toolcall-tr)
 — Türkçe matematik tool-calling veri seti; 13 alt alan, 70 konu, 8 araç çağırma senaryosu.
 
-**Bu adaptör veri setinin 757 örneklik sürümüyle eğitilmiştir**; veri seti şu anda
-1.207 örnektir (yukarıdaki sürüm farkı notuna bakınız).
+**Bu adaptör veri setinin 757 örneklik sürümüyle eğitilmiştir**; yayımlanan veri seti
+şu anda 2.127 örnektir (yukarıdaki sürüm farkı notuna bakınız).
 
-Veri kasıtlı olarak yalnızca "başarılı çağrı" içermez: örneklerin **yaklaşık %31'inde hiç
+Veri kasıtlı olarak yalnızca "başarılı çağrı" içermez: örneklerin **%29,6'sında hiç
 araç çağrılmaz** (soru zaten cevaplanabilir ya da zorunlu parametre eksik). Senaryolar
 arasında `yanlis_arac_tuzagi` (benzer isimli araçlardan doğrusunu seçme), `hata_yonetimi`
 (sıfıra bölme vb.), `zincirli_cagri` ve `paralel_cagri` bulunur.
@@ -206,6 +251,11 @@ arasında `yanlis_arac_tuzagi` (benzer isimli araçlardan doğrusunu seçme), `h
 - **Yalnızca Türkçe ve yalnızca matematik.** Başka dil veya alanlara genellemesi beklenmez.
 - **Küçük veri seti (757 örnek)** ve `r=8` — üslup ve format öğrenilmiştir, temel modelin
   matematik yeteneği köklü biçimde değişmemiştir.
+- Benchmark yalnızca tek çalıştırma ve sınırlı örneklemle yapılmıştır; sonuçlar farklı
+  seed, decoding ayarı veya donanım/yazılım sürümlerinde değişebilir.
+- Türkçe MMLU'da **−7,20 puan** genel bilgi kaybı ve GSM8K'da **%14 gereksiz araç
+  çağrısı** ölçülmüştür. Genel amaçlı veya araçsız kullanımda bu riskler dikkate
+  alınmalıdır.
 - Temel modelin ve `<tool_call>` formatının dışına çıkan araç şemalarında davranış
   öngörülemez olabilir.
 
