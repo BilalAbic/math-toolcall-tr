@@ -32,7 +32,7 @@ Veri kasıtlı olarak yalnızca "başarılı çağrı" içermez. Örneklerin **%
 çağrılmaz**: soru zaten cevaplanabilir ya da zorunlu bir parametre eksiktir ve model
 uydurmak yerine netleştirme sorusu sorar.
 
-**1.207 örnek · 13 alt alan · 70 konu · 8 senaryo**
+**2.127 örnek · 13 alt alan · 70 konu · 8 senaryo**
 
 | Senaryo | Ne öğretir |
 |---|---|
@@ -142,7 +142,7 @@ noktası; İngilizce olduğu için kazanç değil, **bozulma olmadığı** ölç
 | Donanım | A100-SXM4-80GB (Colab) |
 | Son kayıp | ≈ 0,076 |
 
-> ⚠️ Yayımlanan adaptör **757 örnekle** eğitilmiştir. Veri seti bugün **1.207** örnektir;
+> ⚠️ Yayımlanan adaptör **757 örnekle** eğitilmiştir. Veri seti bugün **2.127** örnektir;
 > güncel sürümle yeniden eğitim henüz yapılmamıştır.
 
 `train_on_responses_only` kullanılır — kayıp yalnızca model yanıtlarında hesaplanır,
